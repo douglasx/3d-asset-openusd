@@ -1,0 +1,155 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "marine:schemaVersion" = "0.1.0"
+    }
+    defaultPrim = "main_engine_8l32"
+    metersPerUnit = 1
+    subLayers = [
+        @./main_engine_8l32.geom.usdc@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "main_engine_8l32" (
+    prepend apiSchemas = ["MarineAssetAPI"]
+    assetInfo = {
+        string name = "main_engine_8l32"
+        string version = "0.1.0"
+    }
+    kind = "component"
+)
+{
+    token marine:class = "MainEngine"
+    string marine:function = "converts fuel energy into shaft power"
+    string marine:generator = "propulsion.main_engine:main_engine_8l32"
+    token marine:geometryFidelity = "true"
+    string marine:id = "78e10903-e30b-425b-9ea8-4e90d8b57be2"
+    double marine:length = 5.74
+    int marine:lodLevel = 1
+    double marine:mass = 47784.994
+    token marine:massSource = "rollup"
+    token marine:material = "proxy"
+
+    def Xform "EngineBlock" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "EngineBlock"
+        vector3d marine:explodeDir = (0, 0, 0)
+        double marine:explodeDist = 0
+        string marine:function = "frame and cylinder block carrying crankshaft and cylinders"
+        token marine:geometryFidelity = "envelope"
+        string marine:id = "0f02f155-dddf-48b4-876d-813109d978ce"
+        int marine:lodLevel = 2
+        double marine:mass = 30500
+        token marine:massSource = "declared"
+        token marine:material = "paint_engine_green"
+    }
+
+    def Xform "OilSump" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "OilSump"
+        rel marine:connectedTo = </main_engine_8l32/EngineBlock>
+        vector3d marine:explodeDir = (0, 0, -1)
+        double marine:explodeDist = 0.3025
+        string marine:function = "lubricating oil reservoir"
+        token marine:geometryFidelity = "envelope"
+        string marine:id = "2d238688-ad00-4f21-830b-9015160db1e2"
+        int marine:lodLevel = 2
+        double marine:mass = 2600
+        token marine:massSource = "declared"
+        token marine:material = "paint_engine_green"
+    }
+
+    def PointInstancer "CylinderHeads" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "CylinderHead"
+        rel marine:connectedTo = </main_engine_8l32/EngineBlock>
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 0.3025
+        string marine:function = "closes each cylinder and carries the valves and injector"
+        token marine:geometryFidelity = "envelope"
+        string marine:id = "25fffc3a-6a87-40db-bd47-0cb3aa6e9288"
+        string[] marine:instanceIds = ["2c5b9d83-e3e8-4799-b749-39a4f09fc21b", "2118204a-5f05-43b6-8017-2676f53871a1", "05217de3-b5a5-4437-8047-7ff0c2c70d4a", "4f0ff2c0-8463-4edb-93b8-3bd9c00e6c8a", "cab60a36-5bac-4614-9c36-669f1a675aea", "0e6d2826-f1a9-45cb-89a1-43e2bb06353e", "628ccdc9-bdaa-49c0-be62-45157473dad0", "801b72fa-236b-492f-9e4c-e379b5739ff2"]
+        string[] marine:instanceNames = ["Head_A1", "Head_A2", "Head_A3", "Head_A4", "Head_A5", "Head_A6", "Head_A7", "Head_A8"]
+        int marine:lodLevel = 2
+        double marine:mass = 4960
+        token marine:massSource = "declared"
+        token marine:material = "paint_engine_green"
+        quath[] orientations = [(1, 0, 0, 0), (1, 0, 0, 0), (1, 0, 0, 0), (1, 0, 0, 0), (1, 0, 0, 0), (1, 0, 0, 0), (1, 0, 0, 0), (1, 0, 0, 0)]
+        point3f[] positions = [(1.28, 0, 1.45), (1.84, 0, 1.45), (2.4, 0, 1.45), (2.96, 0, 1.45), (3.52, 0, 1.45), (4.08, 0, 1.45), (4.64, 0, 1.45), (5.2, 0, 1.45)]
+        int[] protoIndices = [0, 0, 0, 0, 0, 0, 0, 0]
+        rel prototypes = </main_engine_8l32/CylinderHeads/Prototypes/geom>
+    }
+
+    def Xform "Turbocharger" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Turbocharger"
+        rel marine:connectedTo = </main_engine_8l32/EngineBlock>
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 0.3025
+        string marine:function = "exhaust-driven compressor supplying charge air"
+        token marine:geometryFidelity = "envelope"
+        string marine:id = "a669e605-bb5f-4f40-be7a-0510e1247c23"
+        int marine:lodLevel = 2
+        double marine:mass = 2300
+        token marine:massSource = "declared"
+        token marine:material = "steel_cast_gs"
+        matrix4d xformOp:transform = ( (6.123233995737e-17, 1, 0, 0), (-1, 6.123233995737e-17, 0, 0), (0, 0, 1, 0), (5.54, 0, 2.36, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Flywheel" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Flywheel"
+        rel marine:connectedTo = [
+            </main_engine_8l32/FlexibleCoupling>,
+            </main_engine_8l32/EngineBlock>,
+        ]
+        double marine:diameter = 1.6
+        vector3d marine:explodeDir = (-1, 0, 0)
+        double marine:explodeDist = 0.3025
+        string marine:function = "smooths crankshaft torque; carries the turning gear rim"
+        token marine:geometryFidelity = "true"
+        string marine:id = "4586c325-6b48-4623-9f08-b65df1a796e0"
+        int marine:lodLevel = 2
+        double marine:mass = 3480.241
+        token marine:massSource = "computed"
+        token marine:material = "steel_cast_gs"
+        double marine:thickness = 0.23
+    }
+
+    def Xform "FlexibleCoupling" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "FlexibleCoupling"
+        double marine:diameter = 1.25
+        vector3d marine:explodeDir = (-1, 0, 0)
+        double marine:explodeDist = 0.3782
+        string marine:function = "damps torsional vibration between engine and gearbox"
+        token marine:geometryFidelity = "true"
+        string marine:id = "ef4378cf-6da8-4b71-b6fd-821bbf08c4b3"
+        double marine:length = 0.45
+        int marine:lodLevel = 2
+        double marine:mass = 3944.753
+        token marine:massSource = "computed"
+        token marine:material = "steel_cast_gs"
+    }
+}
+

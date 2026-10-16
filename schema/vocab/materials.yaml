@@ -1,0 +1,78 @@
+# Controlled material vocabulary. marine:material must be one of these keys.
+# density in kg/m3; colour is linear-ish sRGB hex used for flat viewer
+# materials (no textures). Densities are typical handbook values; replace
+# with your class society / yard values before using masses for anything real.
+version: 0.1.0
+materials:
+  steel_s355:
+    name: Structural steel S355 / AH36
+    density: 7850
+    color: "#8a939c"
+    roughness: 0.55
+    metalness: 0.6
+  steel_forged_34crnimo6:
+    name: Forged alloy steel 34CrNiMo6 (shafting)
+    density: 7850
+    color: "#7c858e"
+    roughness: 0.35
+    metalness: 0.8
+  steel_cast_gs:
+    name: Cast steel GS-20Mn5 (housings)
+    density: 7800
+    color: "#5f6b78"
+    roughness: 0.7
+    metalness: 0.4
+  iron_nodular_gjs400:
+    name: Nodular cast iron EN-GJS-400 (engine block, bearing housings)
+    density: 7100
+    color: "#4b5560"
+    roughness: 0.75
+    metalness: 0.3
+  bronze_nab_cu3:
+    name: Nickel-aluminium bronze Cu3 (propeller blades and hub)
+    density: 7600
+    color: "#c08a45"
+    roughness: 0.3
+    metalness: 0.9
+  stainless_316l:
+    name: Stainless steel 316L
+    density: 8000
+    color: "#b9c0c6"
+    roughness: 0.3
+    metalness: 0.85
+  steel_bolt_10_9:
+    name: Bolt steel grade 10.9
+    density: 7850
+    color: "#3c4148"
+    roughness: 0.45
+    metalness: 0.7
+  whitemetal_babbitt:
+    name: White metal (bearing liner)
+    density: 7400
+    color: "#d6d1c4"
+    roughness: 0.4
+    metalness: 0.7
+  rubber_nbr:
+    name: Nitrile rubber (flexible coupling elements, seals)
+    density: 1300
+    color: "#222222"
+    roughness: 0.9
+    metalness: 0.0
+  paint_engine_green:
+    name: Painted steel (engine casing finish)
+    density: 7850
+    color: "#3f6b5a"
+    roughness: 0.6
+    metalness: 0.2
+  paint_gearbox_blue:
+    name: Painted cast steel (gearbox casing finish)
+    density: 7800
+    color: "#355c8a"
+    roughness: 0.6
+    metalness: 0.2
+  proxy:
+    name: Proxy (no physical material)
+    density: 0
+    color: "#9fb4c7"
+    roughness: 0.8
+    metalness: 0.0

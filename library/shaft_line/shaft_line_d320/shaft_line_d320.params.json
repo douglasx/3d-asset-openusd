@@ -1,0 +1,24 @@
+{
+  "generator": "propulsion.shaft_line:shaft_line_d320",
+  "params": {
+    "coupling_bolt_d": 42.0,
+    "coupling_bolt_len": 260.0,
+    "coupling_bolts": 10,
+    "flange_d": 820.0,
+    "flange_t": 110.0,
+    "inter_shaft_bore": 110.0,
+    "inter_shaft_d": 300.0,
+    "inter_shaft_len": 5500.0,
+    "name": "shaft_line_d320",
+    "plummer_len": 600.0,
+    "prop_shaft_bore": 110.0,
+    "prop_shaft_d": 320.0,
+    "prop_shaft_len": 7000.0,
+    "st_bearing_len": 900.0,
+    "stern_tube_id": 440.0,
+    "stern_tube_len": 4200.0,
+    "stern_tube_od": 560.0,
+    "stern_tube_x0": 450.0
+  },
+  "version": "0.1.0"
+}

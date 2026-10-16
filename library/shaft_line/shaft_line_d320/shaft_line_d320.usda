@@ -1,0 +1,186 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "marine:schemaVersion" = "0.1.0"
+    }
+    defaultPrim = "shaft_line_d320"
+    metersPerUnit = 1
+    subLayers = [
+        @./shaft_line_d320.geom.usdc@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "shaft_line_d320" (
+    prepend apiSchemas = ["MarineAssetAPI"]
+    assetInfo = {
+        string name = "shaft_line_d320"
+        string version = "0.1.0"
+    }
+    kind = "component"
+)
+{
+    token marine:class = "ShaftLine"
+    double marine:diameter = 0.32
+    string marine:function = "carries torque and thrust between gearbox and propeller"
+    string marine:generator = "propulsion.shaft_line:shaft_line_d320"
+    token marine:geometryFidelity = "true"
+    string marine:id = "5266d3b7-6ec5-4f1c-a15b-0ad538fb1d35"
+    double marine:length = 12.5
+    int marine:lodLevel = 1
+    double marine:mass = 13666.106
+    token marine:massSource = "rollup"
+    token marine:material = "proxy"
+
+    def Xform "PropellerShaft" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Shaft"
+        rel marine:connectedTo = </shaft_line_d320/IntermediateShaft>
+        double marine:diameter = 0.32
+        vector3d marine:explodeDir = (0, 0, 0)
+        double marine:explodeDist = 0
+        string marine:function = "transmits torque and thrust between propeller and intermediate shaft"
+        token marine:geometryFidelity = "true"
+        string marine:id = "9487f597-35d7-449b-86c0-7355d3a3f104"
+        double marine:length = 7
+        int marine:lodLevel = 2
+        double marine:mass = 4642.805
+        token marine:massSource = "computed"
+        token marine:material = "steel_forged_34crnimo6"
+    }
+
+    def Xform "SternTube" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "SternTube"
+        rel marine:connectedTo = [
+            </shaft_line_d320/SternTubeBearingAft>,
+            </shaft_line_d320/SternTubeBearingFwd>,
+        ]
+        double marine:diameter = 0.56
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 0.8791
+        string marine:function = "supports the stern bearings and seals the shaft penetration through the hull"
+        token marine:geometryFidelity = "true"
+        string marine:id = "74f47726-472e-4525-a7f8-31b860dc1873"
+        double marine:length = 4.2
+        int marine:lodLevel = 2
+        double marine:mass = 3107.349
+        token marine:massSource = "computed"
+        token marine:material = "steel_s355"
+    }
+
+    def Xform "SternTubeBearingAft" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Bearing"
+        rel marine:connectedTo = </shaft_line_d320/PropellerShaft>
+        double marine:diameter = 0.322
+        vector3d marine:explodeDir = (0, 1, 0)
+        double marine:explodeDist = 0.8791
+        string marine:function = "radial support of the propeller shaft (oil-lubricated white-metal bush)"
+        token marine:geometryFidelity = "true"
+        string marine:id = "c4632516-d319-4eb9-a105-a059d47c59c1"
+        double marine:length = 0.9
+        int marine:lodLevel = 2
+        double marine:mass = 461.143
+        token marine:massSource = "computed"
+        token marine:material = "whitemetal_babbitt"
+    }
+
+    def Xform "SternTubeBearingFwd" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Bearing"
+        rel marine:connectedTo = </shaft_line_d320/PropellerShaft>
+        double marine:diameter = 0.322
+        vector3d marine:explodeDir = (0, 1, 0)
+        double marine:explodeDist = 0.8791
+        string marine:function = "radial support of the propeller shaft (oil-lubricated white-metal bush)"
+        token marine:geometryFidelity = "true"
+        string marine:id = "514320fa-47c8-4ebc-88fd-842bb1df2516"
+        double marine:length = 0.9
+        int marine:lodLevel = 2
+        double marine:mass = 461.143
+        token marine:massSource = "computed"
+        token marine:material = "whitemetal_babbitt"
+    }
+
+    def Xform "IntermediateShaft" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Shaft"
+        double marine:diameter = 0.3
+        vector3d marine:explodeDir = (1, 0, 0)
+        double marine:explodeDist = 0.5023
+        string marine:function = "transmits torque and thrust from gearbox to propeller shaft"
+        token marine:geometryFidelity = "true"
+        string marine:id = "fb995e1c-9d7d-4456-bbab-2265a74d864b"
+        double marine:length = 5.5
+        int marine:lodLevel = 2
+        double marine:mass = 3404.046
+        token marine:massSource = "computed"
+        token marine:material = "steel_forged_34crnimo6"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (7, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "PlummerBearing" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Bearing"
+        rel marine:connectedTo = </shaft_line_d320/IntermediateShaft>
+        double marine:diameter = 0.302
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 1.1302
+        string marine:function = "radial support of the intermediate shaft on its seating"
+        token marine:geometryFidelity = "true"
+        string marine:id = "7cee1a58-c1da-4ce9-8003-65bba2368c66"
+        double marine:length = 0.6
+        int marine:lodLevel = 2
+        double marine:mass = 1544.911
+        token marine:massSource = "computed"
+        token marine:material = "iron_nodular_gjs400"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (9.75, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def PointInstancer "CouplingBolts_PS_IS" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "BoltSet"
+        double marine:diameter = 0.042
+        vector3d marine:explodeDir = (0, 1, 0)
+        double marine:explodeDist = 0.8791
+        string marine:function = "clamps the coupling flanges together"
+        token marine:geometryFidelity = "true"
+        string marine:id = "90585abd-b3e4-4d05-a4b9-4e6e20a591d1"
+        string[] marine:instanceIds = ["c9c8748f-b905-40dc-affb-fdfc1433fe07", "e26a361a-9b91-40e6-a58a-b3d0e2ef4346", "5fbc9ab4-d4ed-473e-a754-c9cb80634d65", "19ab9837-0071-484a-9693-fc5f34895f91", "1a081f2f-3e20-4176-a7bb-975586bdb02a", "44cc1889-91af-4fda-8efd-0624962ff651", "5e9e610c-de57-4ac5-bbe0-5637b36424ab", "a89ff767-754b-46f4-8312-03835a14046e", "7cd629d2-5bb0-4a9b-9774-d15dd34aaff5", "a06600d0-09ce-4c29-8bf8-e5a58dd95a50"]
+        string[] marine:instanceNames = ["Bolt_01", "Bolt_02", "Bolt_03", "Bolt_04", "Bolt_05", "Bolt_06", "Bolt_07", "Bolt_08", "Bolt_09", "Bolt_10"]
+        double marine:length = 0.26
+        int marine:lodLevel = 2
+        double marine:mass = 44.709
+        token marine:massSource = "computed"
+        token marine:material = "steel_bolt_10_9"
+        quath[] orientations = [(1, 0, 0, 0), (1, 0, 0, 0), (1, 0, 0, 0), (1, 0, 0, 0), (1, 0, 0, 0), (1, 0, 0, 0), (1, 0, 0, 0), (1, 0, 0, 0), (1, 0, 0, 0), (1, 0, 0, 0)]
+        point3f[] positions = [(7.11, 0.31194654, 0.10135757), (7.11, 0.19279356, 0.26535758), (7.11, 2.0084208e-17, 0.328), (7.11, -0.19279356, 0.26535758), (7.11, -0.31194654, 0.10135757), (7.11, -0.31194654, -0.10135757), (7.11, -0.19279356, -0.26535758), (7.11, -6.025262e-17, -0.328), (7.11, 0.19279356, -0.26535758), (7.11, 0.31194654, -0.10135757)]
+        int[] protoIndices = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        rel prototypes = </shaft_line_d320/CouplingBolts_PS_IS/Prototypes/geom>
+    }
+}
+

@@ -1,0 +1,282 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "marine:schemaVersion" = "0.1.0"
+    }
+    defaultPrim = "propeller_cpp_4b"
+    metersPerUnit = 1
+    subLayers = [
+        @./propeller_cpp_4b.geom.usdc@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "propeller_cpp_4b" (
+    prepend apiSchemas = ["MarineAssetAPI"]
+    assetInfo = {
+        string name = "propeller_cpp_4b"
+        string version = "0.1.0"
+    }
+    kind = "component"
+)
+{
+    token marine:class = "Propeller"
+    double marine:diameter = 3.6
+    string marine:function = "converts engine power into ship thrust (controllable pitch)"
+    string marine:generator = "propulsion.propeller_cpp:propeller_cpp_4b"
+    token marine:geometryFidelity = "true"
+    string marine:id = "a7f737fe-6a27-4c41-aec0-abffa8d7d310"
+    int marine:lodLevel = 1
+    double marine:mass = 11273.187
+    token marine:massSource = "rollup"
+    token marine:material = "proxy"
+
+    def Xform "Hub" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "PropellerHub"
+        rel marine:connectedTo = [
+            </propeller_cpp_4b/Cone>,
+            </propeller_cpp_4b/Blade_1>,
+            </propeller_cpp_4b/Blade_2>,
+            </propeller_cpp_4b/Blade_3>,
+            </propeller_cpp_4b/Blade_4>,
+        ]
+        double marine:diameter = 1
+        vector3d marine:explodeDir = (0, 0, 0)
+        double marine:explodeDist = 0
+        string marine:function = "carries blades and houses the pitch actuating mechanism"
+        token marine:geometryFidelity = "true"
+        string marine:id = "74f1389b-c4f0-4c56-be2f-307eeb6ec5c8"
+        double marine:length = 1.26
+        int marine:lodLevel = 2
+        double marine:mass = 7278.153
+        token marine:massSource = "computed"
+        token marine:material = "bronze_nab_cu3"
+    }
+
+    def Xform "Cone" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "HubCone"
+        double marine:diameter = 0.92
+        vector3d marine:explodeDir = (-1, 0, 0)
+        double marine:explodeDist = 0.2052
+        string marine:function = "fairs the hub aft end to reduce drag"
+        token marine:geometryFidelity = "true"
+        string marine:id = "cdc1d216-4ce1-4fe5-a82c-e8ec6d748e83"
+        double marine:length = 0.65
+        int marine:lodLevel = 2
+        double marine:mass = 1491.421
+        token marine:massSource = "computed"
+        token marine:material = "bronze_nab_cu3"
+    }
+
+    def Xform "Blade_1" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "PropellerBlade"
+        vector3d marine:explodeDir = (0, 0.165037, 0.986287)
+        double marine:explodeDist = 0.2052
+        string marine:function = "converts shaft torque into thrust; pitch set by the hub mechanism"
+        token marine:geometryFidelity = "true"
+        string marine:id = "96784899-75f6-406b-95d9-e98fe00df669"
+        double marine:length = 1.3
+        int marine:lodLevel = 2
+        double marine:mass = 614.726
+        token marine:massSource = "computed"
+        token marine:material = "bronze_nab_cu3"
+
+        def PointInstancer "PalmBolts" (
+            prepend apiSchemas = ["MarineAssetAPI"]
+            kind = "subcomponent"
+        )
+        {
+            token marine:class = "BoltSet"
+            double marine:diameter = 0.036
+            vector3d marine:explodeDir = (0, 0, -1)
+            double marine:explodeDist = 0.1871
+            string marine:function = "clamps the blade palm to the hub crank ring"
+            token marine:geometryFidelity = "true"
+            string marine:id = "f67fd027-2fa5-40fb-9835-4cbb32e55e3e"
+            string[] marine:instanceIds = ["d31c5449-c0b5-42c0-ad7b-c5888e38ec23", "74663657-2a58-45dc-b2df-bc14f1ac865e", "2dbfb76e-4ef8-43e7-b177-63f94418e6b7", "99115396-a7d6-4a4b-9c6e-140c55517528", "0f45b964-e297-4e18-8195-510065510722", "1536ee02-83b5-436c-bc0c-41b28d4ebddb", "3fefb788-684b-4c50-b6d6-044048ebf1f3", "feb506ac-c88d-44ba-9ad8-c8bc217b2584"]
+            string[] marine:instanceNames = ["Bolt_01", "Bolt_02", "Bolt_03", "Bolt_04", "Bolt_05", "Bolt_06", "Bolt_07", "Bolt_08"]
+            double marine:length = 0.16
+            int marine:lodLevel = 2
+            double marine:mass = 18.506
+            token marine:massSource = "computed"
+            token marine:material = "steel_bolt_10_9"
+            quath[] orientations = [(-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0)]
+            point3f[] positions = [(0.22339407, 0.09253285, 0.59), (0.09253285, 0.22339407, 0.59), (-0.09253285, 0.22339407, 0.59), (-0.22339407, 0.09253285, 0.59), (-0.22339407, -0.09253285, 0.59), (-0.09253285, -0.22339407, 0.59), (0.09253285, -0.22339407, 0.59), (0.22339407, -0.09253285, 0.59)]
+            int[] protoIndices = [0, 0, 0, 0, 0, 0, 0, 0]
+            rel prototypes = </propeller_cpp_4b/Blade_1/PalmBolts/Prototypes/geom>
+        }
+    }
+
+    def Xform "Blade_2" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "PropellerBlade"
+        vector3d marine:explodeDir = (0, -0.986287, 0.165037)
+        double marine:explodeDist = 0.2052
+        string marine:function = "converts shaft torque into thrust; pitch set by the hub mechanism"
+        token marine:geometryFidelity = "true"
+        string marine:id = "4e16dee8-c95c-46ba-9a3b-7612b5a39428"
+        double marine:length = 1.3
+        int marine:lodLevel = 2
+        double marine:mass = 614.726
+        token marine:massSource = "computed"
+        token marine:material = "bronze_nab_cu3"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 6.123233995737e-17, 1, 0), (0, -1, 6.123233995737e-17, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def PointInstancer "PalmBolts" (
+            prepend apiSchemas = ["MarineAssetAPI"]
+            kind = "subcomponent"
+        )
+        {
+            token marine:class = "BoltSet"
+            double marine:diameter = 0.036
+            vector3d marine:explodeDir = (0, 0, -1)
+            double marine:explodeDist = 0.1871
+            string marine:function = "clamps the blade palm to the hub crank ring"
+            token marine:geometryFidelity = "true"
+            string marine:id = "4288b1eb-2ccf-4ecd-b7aa-91b24d768566"
+            string[] marine:instanceIds = ["1c2c0867-a9d0-4281-af5a-1c8933c11073", "3a69d25e-303e-4b8c-ab15-d8d2f6c63718", "4f9602cb-d5c8-4aba-81fb-f89ec82c390c", "89891c66-ec41-42d1-b289-e94884b4581b", "5e8a5058-c848-43b5-ab99-28fbef9b77ab", "aa7c3439-18c7-4821-9163-7f099f62caee", "1d16af12-22ba-4c05-a101-29404d2cec32", "6a1f1b83-fa18-4be5-bd27-0c86bb463351"]
+            string[] marine:instanceNames = ["Bolt_01", "Bolt_02", "Bolt_03", "Bolt_04", "Bolt_05", "Bolt_06", "Bolt_07", "Bolt_08"]
+            double marine:length = 0.16
+            int marine:lodLevel = 2
+            double marine:mass = 18.506
+            token marine:massSource = "computed"
+            token marine:material = "steel_bolt_10_9"
+            quath[] orientations = [(-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0)]
+            point3f[] positions = [(0.22339407, 0.09253285, 0.59), (0.09253285, 0.22339407, 0.59), (-0.09253285, 0.22339407, 0.59), (-0.22339407, 0.09253285, 0.59), (-0.22339407, -0.09253285, 0.59), (-0.09253285, -0.22339407, 0.59), (0.09253285, -0.22339407, 0.59), (0.22339407, -0.09253285, 0.59)]
+            int[] protoIndices = [0, 0, 0, 0, 0, 0, 0, 0]
+            rel prototypes = </propeller_cpp_4b/Blade_2/PalmBolts/Prototypes/geom>
+        }
+    }
+
+    def Xform "Blade_3" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "PropellerBlade"
+        vector3d marine:explodeDir = (0, -0.165037, -0.986287)
+        double marine:explodeDist = 0.2052
+        string marine:function = "converts shaft torque into thrust; pitch set by the hub mechanism"
+        token marine:geometryFidelity = "true"
+        string marine:id = "4c5ae75c-df9b-4632-af10-988aa9e9a5a5"
+        double marine:length = 1.3
+        int marine:lodLevel = 2
+        double marine:mass = 614.726
+        token marine:massSource = "computed"
+        token marine:material = "bronze_nab_cu3"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, -1, 1.224646799147e-16, 0), (0, -1.224646799147e-16, -1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def PointInstancer "PalmBolts" (
+            prepend apiSchemas = ["MarineAssetAPI"]
+            kind = "subcomponent"
+        )
+        {
+            token marine:class = "BoltSet"
+            double marine:diameter = 0.036
+            vector3d marine:explodeDir = (0, 0, -1)
+            double marine:explodeDist = 0.1871
+            string marine:function = "clamps the blade palm to the hub crank ring"
+            token marine:geometryFidelity = "true"
+            string marine:id = "97eab701-79b8-466f-ba47-b837b665e99b"
+            string[] marine:instanceIds = ["2c0102a1-46f1-4deb-bfa5-904f158c4161", "e4ace0e0-de0b-4024-b6f6-01127dc2a2e5", "d2a4c533-5582-4887-816c-3512c6cdd9d7", "1badef0e-2248-435b-9902-73402ca9f09a", "3aa7c9f6-22e1-4550-8431-effc42e1c78e", "669a73f7-858d-4363-be83-8a5f17d0c9dc", "7a5c6fc8-7d0f-41e5-9ce3-232238ba8bc3", "de18332c-b289-490a-a392-7befc5af4aa3"]
+            string[] marine:instanceNames = ["Bolt_01", "Bolt_02", "Bolt_03", "Bolt_04", "Bolt_05", "Bolt_06", "Bolt_07", "Bolt_08"]
+            double marine:length = 0.16
+            int marine:lodLevel = 2
+            double marine:mass = 18.506
+            token marine:massSource = "computed"
+            token marine:material = "steel_bolt_10_9"
+            quath[] orientations = [(-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0)]
+            point3f[] positions = [(0.22339407, 0.09253285, 0.59), (0.09253285, 0.22339407, 0.59), (-0.09253285, 0.22339407, 0.59), (-0.22339407, 0.09253285, 0.59), (-0.22339407, -0.09253285, 0.59), (-0.09253285, -0.22339407, 0.59), (0.09253285, -0.22339407, 0.59), (0.22339407, -0.09253285, 0.59)]
+            int[] protoIndices = [0, 0, 0, 0, 0, 0, 0, 0]
+            rel prototypes = </propeller_cpp_4b/Blade_3/PalmBolts/Prototypes/geom>
+        }
+    }
+
+    def Xform "Blade_4" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "PropellerBlade"
+        vector3d marine:explodeDir = (0, 0.986287, -0.165037)
+        double marine:explodeDist = 0.2052
+        string marine:function = "converts shaft torque into thrust; pitch set by the hub mechanism"
+        token marine:geometryFidelity = "true"
+        string marine:id = "efe93ac8-f784-4bd0-a593-5ad4d067b097"
+        double marine:length = 1.3
+        int marine:lodLevel = 2
+        double marine:mass = 614.726
+        token marine:massSource = "computed"
+        token marine:material = "bronze_nab_cu3"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, -1.836970198721e-16, -1, 0), (0, 1, -1.836970198721e-16, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def PointInstancer "PalmBolts" (
+            prepend apiSchemas = ["MarineAssetAPI"]
+            kind = "subcomponent"
+        )
+        {
+            token marine:class = "BoltSet"
+            double marine:diameter = 0.036
+            vector3d marine:explodeDir = (0, 0, -1)
+            double marine:explodeDist = 0.1871
+            string marine:function = "clamps the blade palm to the hub crank ring"
+            token marine:geometryFidelity = "true"
+            string marine:id = "03382b7d-0427-44f5-8c9d-ab6ac25351d4"
+            string[] marine:instanceIds = ["a6541bde-8d02-464e-af8b-c74a69c472aa", "f63c2cb0-ce0e-4a9e-8565-6e47d78b4ddf", "84746cf4-8e7a-4c04-ae5f-f8efb8831acd", "9cd3570f-07d1-4b66-9ead-a898a054dc3e", "eac3a297-baa3-46bb-8795-5c583b8caba2", "c5b32200-fbce-4b5b-91f5-56a1c88d7881", "6c7854a4-f7ff-4668-8825-ba0282cccdd8", "de0ac4da-d5bd-4938-a2ad-7211a1411845"]
+            string[] marine:instanceNames = ["Bolt_01", "Bolt_02", "Bolt_03", "Bolt_04", "Bolt_05", "Bolt_06", "Bolt_07", "Bolt_08"]
+            double marine:length = 0.16
+            int marine:lodLevel = 2
+            double marine:mass = 18.506
+            token marine:massSource = "computed"
+            token marine:material = "steel_bolt_10_9"
+            quath[] orientations = [(-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0), (-0.707031, 0, 0.707031, 0)]
+            point3f[] positions = [(0.22339407, 0.09253285, 0.59), (0.09253285, 0.22339407, 0.59), (-0.09253285, 0.22339407, 0.59), (-0.22339407, 0.09253285, 0.59), (-0.22339407, -0.09253285, 0.59), (-0.09253285, -0.22339407, 0.59), (0.09253285, -0.22339407, 0.59), (0.22339407, -0.09253285, 0.59)]
+            int[] protoIndices = [0, 0, 0, 0, 0, 0, 0, 0]
+            rel prototypes = </propeller_cpp_4b/Blade_4/PalmBolts/Prototypes/geom>
+        }
+    }
+
+    def PointInstancer "HubFlangeBolts" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "BoltSet"
+        double marine:diameter = 0.042
+        vector3d marine:explodeDir = (1, 0, 0)
+        double marine:explodeDist = 0.2052
+        string marine:function = "clamps the hub flange to the propeller shaft flange"
+        token marine:geometryFidelity = "true"
+        string marine:id = "5a71d89d-3af9-48f0-9f3e-d429ea492b84"
+        string[] marine:instanceIds = ["ff540dba-d876-4256-9c49-05ac87d49e57", "ef5b1a57-47a5-4707-9699-fb7105db0013", "2efe1129-fcd6-4fb3-b018-5a0f5efbec06", "fa9e0686-cd80-4d3e-8d35-a5dfbb3a019d", "27ee6264-dad5-41c6-90c2-2c07008230c8", "28e982a8-f3a9-410a-86b8-a157f75569ca", "ee392267-14c5-4f7d-9e13-76daca35c18b", "2c20a2d0-a609-43f6-a758-afbc5add5da2", "0d4a854c-78e3-4a44-a84a-193441c507d7", "4056351d-b268-4ed3-92d5-b201a730b9a2"]
+        string[] marine:instanceNames = ["Bolt_01", "Bolt_02", "Bolt_03", "Bolt_04", "Bolt_05", "Bolt_06", "Bolt_07", "Bolt_08", "Bolt_09", "Bolt_10"]
+        double marine:length = 0.26
+        int marine:lodLevel = 2
+        double marine:mass = 44.709
+        token marine:massSource = "computed"
+        token marine:material = "steel_bolt_10_9"
+        quath[] orientations = [(0, 0, 1, 0), (0, 0, 1, 0), (0, 0, 1, 0), (0, 0, 1, 0), (0, 0, 1, 0), (0, 0, 1, 0), (0, 0, 1, 0), (0, 0, 1, 0), (0, 0, 1, 0), (0, 0, 1, 0)]
+        point3f[] positions = [(0.6, 0.31194654, 0.10135757), (0.6, 0.19279356, 0.26535758), (0.6, 2.0084208e-17, 0.328), (0.6, -0.19279356, 0.26535758), (0.6, -0.31194654, 0.10135757), (0.6, -0.31194654, -0.10135757), (0.6, -0.19279356, -0.26535758), (0.6, -6.025262e-17, -0.328), (0.6, 0.19279356, -0.26535758), (0.6, 0.31194654, -0.10135757)]
+        int[] protoIndices = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        rel prototypes = </propeller_cpp_4b/HubFlangeBolts/Prototypes/geom>
+    }
+}
+

@@ -1,0 +1,77 @@
+@prefix mo:   <https://example.org/marine/ontology#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# Marine asset ontology, v0.1.0. Class names mirror schema/vocab/classes.yaml
+# (a test keeps the two in step). Replace the example.org namespace with your
+# organisation's before phase 2.
+
+mo: a owl:Ontology ;
+    rdfs:label "Marine vessel asset ontology" ;
+    owl:versionInfo "0.1.0" .
+
+# ---- top-level classes
+mo:Asset a owl:Class ; rdfs:comment "Anything with a marine:id." .
+mo:Vessel a owl:Class ; rdfs:subClassOf mo:Asset .
+mo:Zone a owl:Class ; rdfs:subClassOf mo:Asset .
+mo:System a owl:Class ; rdfs:subClassOf mo:Asset .
+mo:Equipment a owl:Class ; rdfs:subClassOf mo:Asset .
+mo:Component a owl:Class ; rdfs:subClassOf mo:Asset .
+mo:Material a owl:Class .
+mo:Function a owl:Class .
+
+# ---- systems and equipment
+mo:PropulsionSystem a owl:Class ; rdfs:subClassOf mo:System .
+mo:MainEngine a owl:Class ; rdfs:subClassOf mo:Equipment .
+mo:Gearbox a owl:Class ; rdfs:subClassOf mo:Equipment .
+mo:ShaftLine a owl:Class ; rdfs:subClassOf mo:Equipment .
+mo:Propeller a owl:Class ; rdfs:subClassOf mo:Equipment .
+
+# ---- components
+mo:EngineBlock a owl:Class ; rdfs:subClassOf mo:Component .
+mo:CylinderHead a owl:Class ; rdfs:subClassOf mo:Component .
+mo:OilSump a owl:Class ; rdfs:subClassOf mo:Component .
+mo:Turbocharger a owl:Class ; rdfs:subClassOf mo:Component .
+mo:Flywheel a owl:Class ; rdfs:subClassOf mo:Component .
+mo:GearboxCasing a owl:Class ; rdfs:subClassOf mo:Component .
+mo:GearWheel a owl:Class ; rdfs:subClassOf mo:Component .
+mo:Pinion a owl:Class ; rdfs:subClassOf mo:Component .
+mo:Shaft a owl:Class ; rdfs:subClassOf mo:Component .
+mo:Flange a owl:Class ; rdfs:subClassOf mo:Component .
+mo:FlexibleCoupling a owl:Class ; rdfs:subClassOf mo:Component .
+mo:ShaftCoupling a owl:Class ; rdfs:subClassOf mo:Component .
+mo:Bearing a owl:Class ; rdfs:subClassOf mo:Component .
+mo:SternTube a owl:Class ; rdfs:subClassOf mo:Component .
+mo:PropellerHub a owl:Class ; rdfs:subClassOf mo:Component .
+mo:PropellerBlade a owl:Class ; rdfs:subClassOf mo:Component .
+mo:HubCone a owl:Class ; rdfs:subClassOf mo:Component .
+mo:Fastener a owl:Class ; rdfs:subClassOf mo:Component .
+mo:BoltSet a owl:Class ; rdfs:subClassOf mo:Fastener .
+mo:Proxy a owl:Class ; rdfs:subClassOf mo:Component .
+
+# ---- relations
+# No rdfs:domain/range here on purpose: RDFS inference would then classify
+# anything with a partOf (e.g. a single bolt instance) as a full mo:Asset.
+# Constraints live in shapes.ttl instead.
+mo:partOf a owl:ObjectProperty, owl:TransitiveProperty .
+mo:connectedTo a owl:ObjectProperty, owl:SymmetricProperty .
+mo:serves a owl:ObjectProperty .
+mo:madeOf a owl:ObjectProperty .
+mo:suppliedBy a owl:ObjectProperty .
+mo:instanceOf a owl:ObjectProperty ; rdfs:comment "Instance of a repeated part (one bolt of a bolt set)." .
+mo:PartInstance a owl:Class ; rdfs:comment "One placement of a repeated part; properties live on its set." .
+mo:definedBy a owl:ObjectProperty ; rdfs:comment "Occurrence -> library definition." .
+
+# ---- data properties
+mo:id a owl:DatatypeProperty ; rdfs:range xsd:string .
+mo:code a owl:DatatypeProperty ; rdfs:range xsd:string .
+mo:name a owl:DatatypeProperty ; rdfs:range xsd:string .
+mo:function a owl:DatatypeProperty ; rdfs:range xsd:string .
+mo:mass a owl:DatatypeProperty ; rdfs:range xsd:double ; rdfs:comment "kg" .
+mo:diameter a owl:DatatypeProperty ; rdfs:range xsd:double ; rdfs:comment "m" .
+mo:length a owl:DatatypeProperty ; rdfs:range xsd:double ; rdfs:comment "m" .
+mo:thickness a owl:DatatypeProperty ; rdfs:range xsd:double ; rdfs:comment "m" .
+mo:usdPath a owl:DatatypeProperty ; rdfs:range xsd:string .
+mo:density a owl:DatatypeProperty ; rdfs:range xsd:double ; rdfs:comment "kg/m3" .

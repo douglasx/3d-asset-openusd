@@ -1,0 +1,18 @@
+# Breakdown codes for marine:code.
+#
+# UNVERIFIED: these follow the *shape* of DNV VIS/Gmod codes (function
+# hierarchy path + component suffix) but the numbers are placeholders chosen
+# for the spike. Before phase 2, replace them with real Gmod codes from the
+# DNV Vista SDK (MIT, PyPI `vista-sdk`, VIS 3.4a-3.10a; or SFI codes if VIS is rejected) and keep the UUIDs: only
+# marine:code changes, marine:id never does.
+version: 0.1.0
+verified: false
+scheme: VIS-style-placeholder
+codes:
+  vessel: "V.DEMO-OSV"
+  zone.engine_room: "Z.ER"
+  system.propulsion: "411"
+  equipment.main_engine: "411.1/C101"
+  equipment.gearbox: "411.1/C201"
+  equipment.shaft_line: "411.1/C301"
+  equipment.propeller: "411.1/C401"

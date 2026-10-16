@@ -1,0 +1,15 @@
+{
+  "name": "marine-build-tools",
+  "private": true,
+  "type": "module",
+  "description": "GLB optimisation step (glTF-Transform + meshoptimizer). Called by marinekit.build.",
+  "scripts": {
+    "optimize": "node optimize.mjs"
+  },
+  "dependencies": {
+    "@gltf-transform/core": "4.1.1",
+    "@gltf-transform/extensions": "4.1.1",
+    "@gltf-transform/functions": "4.1.1",
+    "meshoptimizer": "0.22.0"
+  }
+}

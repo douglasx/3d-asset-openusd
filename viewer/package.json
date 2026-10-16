@@ -1,0 +1,22 @@
+{
+  "name": "@marine/viewer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Embeddable three.js viewer for marine asset manifests (GLB chunks keyed by marine:id).",
+  "scripts": {
+    "sync-data": "node scripts/sync-data.mjs",
+    "dev": "npm run sync-data && vite",
+    "build": "npm run sync-data && tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "single-file": "node scripts/single-file.mjs demo_osv dist/viewer-single.html"
+  },
+  "dependencies": {
+    "three": "0.170.0"
+  },
+  "devDependencies": {
+    "@types/three": "0.170.0",
+    "typescript": "5.6.3",
+    "vite": "5.4.11"
+  }
+}

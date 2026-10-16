@@ -1,0 +1,50 @@
+@prefix mo:   <https://example.org/marine/ontology#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# SHACL conformance rules run by the validator over the extracted graph.
+# Targets use rdfs:subClassOf inference (pyshacl inference="rdfs").
+
+mo:AssetShape a sh:NodeShape ;
+    sh:targetClass mo:Asset ;
+    sh:property [ sh:path mo:id ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+                  sh:pattern "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" ] ;
+    sh:property [ sh:path mo:function ; sh:minCount 1 ; sh:message "every asset states its function" ] ;
+    sh:property [ sh:path mo:mass ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ;
+                  sh:minInclusive 0.0 ] .
+
+mo:SystemShape a sh:NodeShape ;
+    sh:targetClass mo:System ;
+    sh:property [ sh:path mo:function ; sh:minCount 1 ; sh:message "every System has a function" ] ;
+    sh:property [ sh:path mo:partOf ; sh:minCount 1 ; sh:class mo:Zone ;
+                  sh:message "every System sits in a Zone" ] .
+
+mo:EquipmentShape a sh:NodeShape ;
+    sh:targetClass mo:Equipment ;
+    sh:property [ sh:path mo:serves ; sh:minCount 1 ; sh:class mo:System ;
+                  sh:message "every Equipment serves a System" ] ;
+    sh:property [ sh:path mo:partOf ; sh:minCount 1 ; sh:class mo:System ] ;
+    sh:property [ sh:path mo:code ; sh:minCount 1 ] .
+
+mo:ComponentShape a sh:NodeShape ;
+    sh:targetClass mo:Component ;
+    sh:property [ sh:path mo:madeOf ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mo:Material ;
+                  sh:message "every Component is made of exactly one vocabulary Material" ] ;
+    sh:property [ sh:path mo:partOf ; sh:minCount 1 ] .
+
+mo:BladeShape a sh:NodeShape ;
+    sh:targetClass mo:PropellerBlade ;
+    sh:property [ sh:path mo:partOf ; sh:class mo:Propeller ; sh:message "a blade belongs to a Propeller" ] .
+
+mo:ShaftShape a sh:NodeShape ;
+    sh:targetClass mo:Shaft ;
+    sh:property [ sh:path mo:connectedTo ; sh:minCount 1 ; sh:message "a Shaft must connect to something" ] ;
+    sh:property [ sh:path mo:diameter ; sh:minCount 1 ] ;
+    sh:property [ sh:path mo:length ; sh:minCount 1 ] .
+
+mo:InstanceShape a sh:NodeShape ;
+    sh:targetClass mo:PartInstance ;
+    sh:property [ sh:path mo:instanceOf ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mo:Component ;
+                  sh:message "an instance belongs to exactly one repeated Component" ] ;
+    sh:property [ sh:path mo:id ; sh:minCount 1 ; sh:maxCount 1 ] .

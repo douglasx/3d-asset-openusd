@@ -1,0 +1,57 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "marine:schemaVersion" = "0.1.0"
+    }
+    defaultPrim = "DemoOSV"
+    metersPerUnit = 1
+    subLayers = [
+        @./demo_osv.geom.usdc@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "DemoOSV" (
+    prepend apiSchemas = ["MarineAssetAPI"]
+    assetInfo = {
+        string name = "demo_osv"
+        string version = "0.1.0"
+    }
+    kind = "assembly"
+)
+{
+    token marine:class = "Vessel"
+    string marine:code = "V.DEMO-OSV"
+    string marine:function = "offshore supply vessel; only the propulsion system is modelled in the spike"
+    string marine:id = "65d5b507-3573-4e91-8cb1-b00aab377d9d"
+    int marine:lodLevel = 0
+    double marine:mass = 91820.135
+    token marine:massSource = "rollup"
+    token marine:material = "proxy"
+
+    def Xform "EngineRoom" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "assembly"
+    )
+    {
+        token marine:class = "Zone"
+        string marine:code = "Z.ER"
+        vector3d marine:explodeDir = (0, 0, 0)
+        double marine:explodeDist = 0
+        string marine:function = "machinery space housing main propulsion"
+        string marine:id = "30ade58c-ffc2-4838-a8f8-ab1df44b7a38"
+        int marine:lodLevel = 0
+        double marine:mass = 91820.135
+        token marine:massSource = "rollup"
+        token marine:material = "proxy"
+
+        def Xform "Propulsion" (
+            prepend payload = @./propulsion.usda@
+        )
+        {
+            vector3d marine:explodeDir = (0, 0, 0)
+            double marine:explodeDist = 0
+        }
+    }
+}
+

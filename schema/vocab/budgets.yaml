@@ -1,0 +1,19 @@
+# Triangle budgets per LOD tier. Starting guesses from the plan, NOT measured
+# limits: profile on the slowest target device and replace these.
+version: 0.1.0
+lod:
+  L0: {per: assembly, min: 12, max: 5000}
+  L1: {per: system, max: 30000}
+  L2: {per: system, max: 150000}
+tessellation:
+  # Relative chord deflection (fraction of each solid's bounding size) and
+  # angular deflection in radians, per tier.
+  L2: {relative_deflection: 0.004, angular_deflection: 0.35}
+  L1: {decimate_ratio: 0.2}
+  # per-class overrides of the L2 settings
+  class_overrides:
+    PropellerBlade: {relative_deflection: 0.008, angular_deflection: 0.5}
+    BoltSet: {relative_deflection: 0.01, angular_deflection: 0.6}
+    CylinderHead: {relative_deflection: 0.01, angular_deflection: 0.6}
+mass_check:
+  tolerance: 0.03          # |mesh volume x density - declared| / declared

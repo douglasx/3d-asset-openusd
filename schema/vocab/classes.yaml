@@ -1,0 +1,49 @@
+# Controlled class vocabulary (mirrors schema/ontology/marine.ttl).
+# level: vessel | zone | system | equipment | component | fastener
+# explode: default explode pattern used by marinekit.explode
+#   axial    -> along the parent's x (shaft-line parts)
+#   radial   -> away from the parent's x axis (rotationally symmetric parts)
+#   vertical -> +z (deck-mounted equipment)
+#   anchor   -> stays put; siblings move away from it
+# require: attributes that must be authored (beyond the always-required
+#   id, code, class, function, material, mass)
+# check: how the validator compares declared dimensions with the mesh, in
+#   the prim's own frame (rotational parts have their axis on local x):
+#   radial_max  diameter = 2 x largest distance from the x axis
+#   mid_section diameter = 2 x largest radius where the plane x = mid cuts the mesh
+#   x_extent    value = mesh extent along x
+#   x_extent_le value <= mesh extent along x (envelope with overhangs)
+version: 0.1.0
+classes:
+  Vessel:          {level: vessel,    explode: anchor}
+  Zone:            {level: zone,      explode: vertical}
+  System:          {level: system,    explode: vertical}
+  PropulsionSystem: {level: system,   parent: System, explode: vertical}
+
+  Equipment:       {level: equipment, explode: vertical}
+  MainEngine:      {level: equipment, parent: Equipment, explode: axial, require: [length], check: {length: x_extent_le}}
+  Gearbox:         {level: equipment, parent: Equipment, explode: axial, require: [length], check: {length: x_extent}}
+  ShaftLine:       {level: equipment, parent: Equipment, explode: axial, require: [length, diameter], check: {length: x_extent}}
+  Propeller:       {level: equipment, parent: Equipment, explode: axial,    require: [diameter], check: {diameter: radial_max}}
+
+  Component:       {level: component, explode: radial}
+  EngineBlock:     {level: component, parent: Component, explode: anchor}
+  CylinderHead:    {level: component, parent: Component, explode: vertical}
+  OilSump:         {level: component, parent: Component, explode: vertical}
+  Turbocharger:    {level: component, parent: Component, explode: vertical}
+  Flywheel:        {level: component, parent: Component, explode: axial, require: [diameter, thickness], check: {diameter: radial_max, thickness: x_extent}}
+  GearboxCasing:   {level: component, parent: Component, explode: anchor}
+  GearWheel:       {level: component, parent: Component, explode: vertical, require: [diameter, thickness], check: {diameter: radial_max, thickness: x_extent}}
+  Pinion:          {level: component, parent: Component, explode: vertical, require: [diameter, thickness], check: {diameter: radial_max, thickness: x_extent}}
+  Shaft:           {level: component, parent: Component, explode: axial, require: [diameter, length], check: {diameter: mid_section, length: x_extent}}
+  Flange:          {level: component, parent: Component, explode: axial, require: [diameter, thickness], check: {diameter: radial_max}}
+  FlexibleCoupling: {level: component, parent: Component, explode: axial, require: [diameter, length], check: {diameter: radial_max, length: x_extent}}
+  ShaftCoupling:   {level: component, parent: Component, explode: axial, require: [diameter, length]}
+  Bearing:         {level: component, parent: Component, explode: vertical, require: [diameter, length]}
+  SternTube:       {level: component, parent: Component, explode: vertical, require: [diameter, length], check: {diameter: radial_max, length: x_extent}}
+  PropellerHub:    {level: component, parent: Component, explode: anchor, require: [diameter, length], check: {diameter: mid_section, length: x_extent}}
+  PropellerBlade:  {level: component, parent: Component, explode: radial}
+  HubCone:         {level: component, parent: Component, explode: axial, require: [diameter, length], check: {diameter: radial_max, length: x_extent}}
+  Fastener:        {level: fastener,  parent: Component, explode: axial, require: [diameter, length], check: {diameter: mid_section}}
+  BoltSet:         {level: fastener,  parent: Component, explode: axial, require: [diameter, length], check: {diameter: mid_section}}
+  Proxy:           {level: component, explode: anchor}

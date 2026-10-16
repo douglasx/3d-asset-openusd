@@ -1,0 +1,9 @@
+# Laptop / on-prem start. Phase 2 adds Postgres (registry), an S3-compatible
+# store (artifacts) and a SPARQL store; each is behind an env var already.
+services:
+  api:
+    build: .
+    image: marine-asset-pipeline:0.1.0
+    ports: ["8000:8000"]
+    environment:
+      MARINE_CORS: "*"

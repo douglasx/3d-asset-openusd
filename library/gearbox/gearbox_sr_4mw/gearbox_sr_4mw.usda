@@ -1,0 +1,136 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "marine:schemaVersion" = "0.1.0"
+    }
+    defaultPrim = "gearbox_sr_4mw"
+    metersPerUnit = 1
+    subLayers = [
+        @./gearbox_sr_4mw.geom.usdc@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "gearbox_sr_4mw" (
+    prepend apiSchemas = ["MarineAssetAPI"]
+    assetInfo = {
+        string name = "gearbox_sr_4mw"
+        string version = "0.1.0"
+    }
+    kind = "component"
+)
+{
+    token marine:class = "Gearbox"
+    string marine:function = "reduces engine speed and carries propeller thrust"
+    string marine:generator = "propulsion.gearbox:gearbox_sr_4mw"
+    token marine:geometryFidelity = "true"
+    string marine:id = "cb2bf2d5-89d4-40ed-94b1-13912312a3d6"
+    double marine:length = 2.72
+    int marine:lodLevel = 1
+    double marine:mass = 19095.848
+    token marine:massSource = "rollup"
+    token marine:material = "proxy"
+
+    def Xform "Casing" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "GearboxCasing"
+        vector3d marine:explodeDir = (0, 0, 0)
+        double marine:explodeDist = 0
+        string marine:function = "encloses gears and bearings, carries thrust bearing loads to the seating"
+        token marine:geometryFidelity = "envelope"
+        string marine:id = "5a8bbef3-6315-4ce5-b1d1-accff523dc15"
+        int marine:lodLevel = 2
+        double marine:mass = 11500
+        token marine:massSource = "declared"
+        token marine:material = "paint_gearbox_blue"
+    }
+
+    def Xform "GearWheel" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "GearWheel"
+        double marine:diameter = 1.5
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 2.3027
+        string marine:function = "output gear: reduces engine speed to propeller speed"
+        token marine:geometryFidelity = "true"
+        string marine:id = "3920f882-ef66-4894-9d66-53fa0d3e7303"
+        int marine:lodLevel = 2
+        double marine:mass = 5561.119
+        token marine:massSource = "computed"
+        token marine:material = "steel_forged_34crnimo6"
+        double marine:thickness = 0.42
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1.1500000000000001, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Pinion" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Pinion"
+        rel marine:connectedTo = </gearbox_sr_4mw/GearWheel>
+        double marine:diameter = 0.55
+        vector3d marine:explodeDir = (-1, 0, 0)
+        double marine:explodeDist = 1.2793
+        string marine:function = "input gear driven by the main engine"
+        token marine:geometryFidelity = "true"
+        string marine:id = "ef658bc9-e999-4671-8ab5-69faa6182746"
+        int marine:lodLevel = 2
+        double marine:mass = 525.191
+        token marine:massSource = "computed"
+        token marine:material = "steel_forged_34crnimo6"
+        double marine:thickness = 0.44
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1.1500000000000001, 0, 1.025, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "OutputFlange" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Flange"
+        rel marine:connectedTo = </gearbox_sr_4mw/GearWheel>
+        double marine:diameter = 0.82
+        vector3d marine:explodeDir = (-1, 0, 0)
+        double marine:explodeDist = 0.1706
+        string marine:function = "connects the gearbox output shaft to the intermediate shaft"
+        token marine:geometryFidelity = "true"
+        string marine:id = "bf9c5fa4-7718-4ad6-96b1-cd098736bf47"
+        int marine:lodLevel = 2
+        double marine:mass = 600.747
+        token marine:massSource = "computed"
+        token marine:material = "steel_forged_34crnimo6"
+        double marine:thickness = 0.11
+    }
+
+    def Xform "InputFlange" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Flange"
+        rel marine:connectedTo = </gearbox_sr_4mw/Pinion>
+        double marine:diameter = 0.738
+        vector3d marine:explodeDir = (1, 0, 0)
+        double marine:explodeDist = 0.1706
+        string marine:function = "connects the gearbox input shaft to the engine flexible coupling"
+        token marine:geometryFidelity = "true"
+        string marine:id = "15ae7b2c-033f-4c2a-96bc-dc4520b12235"
+        int marine:lodLevel = 2
+        double marine:mass = 908.791
+        token marine:massSource = "computed"
+        token marine:material = "steel_forged_34crnimo6"
+        double marine:thickness = 0.11
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 1.025, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+}
+

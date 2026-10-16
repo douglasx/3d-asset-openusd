@@ -1,0 +1,12 @@
+# Binary sources (.step, .usdc, .glb) are plain git objects for now: the whole
+# library is a few MB. When it grows, move them to Git LFS:
+#   git lfs install && git lfs migrate import --include="*.step,*.usdc,*.glb" --everything
+# and add these lines back:
+#   *.step filter=lfs diff=lfs merge=lfs -text
+#   *.usdc filter=lfs diff=lfs merge=lfs -text
+#   *.glb  filter=lfs diff=lfs merge=lfs -text
+*.step -text
+*.usdc binary
+*.glb  binary
+# .usda stays plain text so attribute changes show up in review diffs
+*.usda text eol=lf

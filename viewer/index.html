@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vessel Asset Viewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="app">
+    <header class="bar">
+      <div class="ident">
+        <h1 id="vessel-name">Vessel</h1>
+        <p id="vessel-title"></p>
+      </div>
+      <div class="tools" role="toolbar" aria-label="View tools">
+        <label class="field">Select
+          <select id="pick-level">
+            <option value="part">Part</option>
+            <option value="component">Component</option>
+            <option value="equipment">Equipment</option>
+            <option value="system">System</option>
+          </select>
+        </label>
+        <label class="field">Colour by
+          <select id="color-mode">
+            <option value="material">Material</option>
+            <option value="equipment">Equipment</option>
+            <option value="status">Condition</option>
+          </select>
+        </label>
+        <button id="btn-measure" type="button" aria-pressed="false">Measure</button>
+        <button id="btn-fit" type="button">Fit view</button>
+        <button id="btn-panels" type="button" class="only-narrow" aria-expanded="false">Panels</button>
+      </div>
+    </header>
+
+    <aside class="pane tree-pane" aria-label="Model tree">
+      <div class="pane-head">
+        <h2>Model tree</h2>
+        <div class="row">
+          <button id="btn-expand-all" type="button" class="link">Expand all</button>
+          <button id="btn-collapse-all" type="button" class="link">Collapse all</button>
+        </div>
+      </div>
+      <input id="tree-filter" type="search" placeholder="Filter by name, class or code" aria-label="Filter tree" />
+      <ul id="tree" class="tree" role="tree"></ul>
+    </aside>
+
+    <main class="stage">
+      <div id="viewport" class="viewport"></div>
+      <div id="loading" class="loading" role="status">Loading manifest</div>
+      <section class="ladder" aria-label="Explode by level">
+        <div class="ladder-head">
+          <h2>Explode</h2>
+          <button id="btn-reset-explode" type="button" class="link">Assemble</button>
+        </div>
+        <div id="ladder-rows"></div>
+      </section>
+      <section class="section-tool" aria-label="Section plane">
+        <label><input id="section-on" type="checkbox" /> Section at frame x =</label>
+        <input id="section-x" type="range" min="0" max="30" step="0.05" value="12" disabled aria-label="Section position" />
+        <output id="section-val">12.00 m</output>
+      </section>
+      <p id="stats" class="stats"></p>
+      <p id="measure-out" class="measure-out" hidden></p>
+    </main>
+
+    <aside class="pane props-pane" aria-label="Properties">
+      <div id="props" class="props">
+        <p class="empty">Click a part in the view or the tree to see its properties.</p>
+      </div>
+    </aside>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+# Vessel arrangement: the human-edited input for vessel composition.
+# Positions are metres in the ship frame (x forward from the aft
+# perpendicular, y to port, z up from baseline) and place each equipment's
+# local origin. Equipment comes from library/ by reference, never copied.
+#
+# Shaft centreline is at z = 2.000 m. Datum chain (all on the shaft axis):
+#   propeller plane x = 3.000; hub flange face = 3.000 + 0.710 = 3.710
+#   shaft line 12.500 m long -> gearbox output flange face at 16.210
+#   gearbox input flange face is 2.720 fwd and 1.025 up -> engine at (18.930, 3.025)
+version: 0.1.0
+vessel:
+  name: DemoOSV
+  title: Demo offshore supply vessel (propulsion spike)
+  class: Vessel
+  function: "offshore supply vessel; only the propulsion system is modelled in the spike"
+zones:
+  - name: EngineRoom
+    class: Zone
+    code_key: zone.engine_room
+    function: "machinery space housing main propulsion"
+    systems:
+      - name: Propulsion
+        class: PropulsionSystem
+        code_key: system.propulsion
+        function: "produces and transmits propulsive thrust"
+        layer: propulsion.usda
+        equipment:
+          - name: MainEngine
+            asset: main_engine/main_engine_8l32/main_engine_8l32.usda
+            code_key: equipment.main_engine
+            position: [18.930, 0.0, 3.025]
+          - name: Gearbox
+            asset: gearbox/gearbox_sr_4mw/gearbox_sr_4mw.usda
+            code_key: equipment.gearbox
+            position: [16.210, 0.0, 2.000]
+          - name: ShaftLine
+            asset: shaft_line/shaft_line_d320/shaft_line_d320.usda
+            code_key: equipment.shaft_line
+            position: [3.710, 0.0, 2.000]
+          - name: Propeller
+            asset: propeller_cpp/propeller_cpp.usda
+            code_key: equipment.propeller
+            position: [3.000, 0.0, 2.000]
+            variants: {bladeCount: "4"}
+        connections:
+          - [Propeller/Hub, ShaftLine/PropellerShaft]
+          - [ShaftLine/IntermediateShaft, Gearbox/OutputFlange]
+          - [Gearbox/InputFlange, MainEngine/FlexibleCoupling]

@@ -1,0 +1,20 @@
+{
+  "generator": "propulsion.gearbox:gearbox_sr_4mw",
+  "params": {
+    "casing_above": 450.0,
+    "casing_below": 1050.0,
+    "casing_len": 2000.0,
+    "casing_mass": 11500.0,
+    "casing_w": 2100.0,
+    "face_width": 420.0,
+    "flange_bolt_holes": 10,
+    "flange_d": 820.0,
+    "flange_t": 110.0,
+    "name": "gearbox_sr_4mw",
+    "pinion_d": 550.0,
+    "shaft_d": 320.0,
+    "stub_len": 250.0,
+    "wheel_d": 1500.0
+  },
+  "version": "0.1.0"
+}

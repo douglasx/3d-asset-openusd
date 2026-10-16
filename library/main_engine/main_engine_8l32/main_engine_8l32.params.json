@@ -1,0 +1,27 @@
+{
+  "generator": "propulsion.main_engine:main_engine_8l32",
+  "params": {
+    "block_above": 1450.0,
+    "block_below": 650.0,
+    "block_len": 5000.0,
+    "block_mass": 30500.0,
+    "block_w": 1800.0,
+    "coupling_d": 1250.0,
+    "coupling_len": 450.0,
+    "cyl_pitch": 560.0,
+    "cylinders": 8,
+    "flywheel_d": 1600.0,
+    "flywheel_t": 230.0,
+    "head_h": 380.0,
+    "head_l": 470.0,
+    "head_mass": 620.0,
+    "head_w": 620.0,
+    "name": "main_engine_8l32",
+    "sump_h": 600.0,
+    "sump_mass": 2600.0,
+    "turbo_d": 900.0,
+    "turbo_len": 1300.0,
+    "turbo_mass": 2300.0
+  },
+  "version": "0.1.0"
+}

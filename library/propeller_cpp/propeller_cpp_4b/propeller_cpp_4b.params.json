@@ -1,0 +1,26 @@
+{
+  "generator": "propulsion.propeller_cpp:propeller_cpp_4b",
+  "params": {
+    "blade_bolt_d": 36.0,
+    "blade_bolt_len": 160.0,
+    "blade_bolts": 8,
+    "blades": 4,
+    "cone_length": 650.0,
+    "cone_tip_diameter": 260.0,
+    "diameter": 3600.0,
+    "expanded_area_ratio": 0.55,
+    "flange_diameter": 820.0,
+    "flange_t": 110.0,
+    "hub_bolt_d": 42.0,
+    "hub_bolt_len": 260.0,
+    "hub_bolts": 10,
+    "hub_diameter": 1000.0,
+    "hub_length": 1100.0,
+    "name": "propeller_cpp_4b",
+    "palm_diameter": 620.0,
+    "palm_height": 90.0,
+    "pitch_ratio": 0.95,
+    "skew_deg": 18.0
+  },
+  "version": "0.1.0"
+}

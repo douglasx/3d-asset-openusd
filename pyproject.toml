@@ -1,0 +1,30 @@
+[project]
+name = "marine-asset-pipeline"
+version = "0.1.0"
+description = "Marine vessel 3D asset pipeline: generators -> STEP -> OpenUSD -> glTF, with registry, graph and API"
+requires-python = ">=3.11"
+# Exact pins: builds must be deterministic, so the toolchain only changes on purpose.
+dependencies = [
+  "build123d==0.13.0",
+  "cadquery-ocp-novtk==8.0.1.1.0",
+  "usd-core==26.8",
+  "numpy==2.5.4",
+  "scipy==1.18.1",
+  "fast_simplification==0.2.0",
+  "pygltflib==1.16.5",
+  "PyYAML==6.0.3",
+  "rdflib==7.6.0",
+  "pyshacl==0.40.1",
+  "fastapi==0.143.2",
+  "uvicorn==0.54.0",
+  "python-multipart==0.0.32",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.1.1", "httpx==0.28.1", "matplotlib==3.11.2"]
+
+[tool.setuptools]
+packages = ["marinekit", "generators", "generators.propulsion", "api"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

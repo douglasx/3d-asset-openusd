@@ -1,0 +1,101 @@
+#usda 1.0
+(
+    """Source definition of the codeless marine: API schema.
+
+    This is the file a human edits. generatedSchema.usda and plugInfo.json
+    beside it are what USD loads at runtime; keep the three in step (the
+    test suite checks that every attribute here is registered).
+    Schema version is in customData.schemaVersion; bump it and add a
+    migration under schema/migrations/ when an attribute changes meaning.
+    """
+    subLayers = [
+        @usd/schema.usda@
+    ]
+)
+
+over "GLOBAL" (
+    customData = {
+        string libraryName = "marine"
+        string libraryPath = "."
+        bool skipCodeGeneration = true
+        string schemaVersion = "0.1.0"
+    }
+)
+{
+}
+
+class "MarineAssetAPI" (
+    inherits = </APISchemaBase>
+    customData = {
+        token apiSchemaType = "singleApply"
+    }
+    doc = """Physical and functional identity of one marine asset prim
+    (vessel, zone, system, equipment or component). Position is never an
+    attribute: it comes from the prim transform in the ship frame
+    (metersPerUnit = 1, upAxis = Z, x forward, y port, z up, origin at
+    aft perpendicular / centreline / baseline)."""
+)
+{
+    string marine:id = "" (
+        doc = "Permanent UUID. The join key to backend, graph and viewer. Never reused."
+    )
+    string marine:definitionId = "" (
+        doc = "UUID of the library definition this occurrence was instantiated from, if any."
+    )
+    string marine:code = "" (
+        doc = "Human-readable breakdown code (VIS/Gmod-style path)."
+    )
+    token marine:class = "" (
+        doc = "Ontology class from schema/vocab/classes.yaml, e.g. Propeller, Shaft, Gearbox."
+    )
+    string marine:function = "" (
+        doc = "What this item does in its system, e.g. 'thrust transmission'."
+    )
+    token marine:material = "" (
+        doc = "Material token from schema/vocab/materials.yaml (grade + density lookup)."
+    )
+    double marine:mass = 0 (
+        doc = "Declared mass in kg."
+    )
+    token marine:massSource = "computed" (
+        allowedTokens = ["computed", "declared", "rollup"]
+        doc = "computed = volume x density of the exact solid; declared = from a spec sheet; rollup = sum of children."
+    )
+    token marine:geometryFidelity = "true" (
+        allowedTokens = ["true", "envelope", "proxy"]
+        doc = "true = dimension-true solid; envelope = simplified outer envelope of real equipment; proxy = L0 stand-in."
+    )
+    double marine:diameter (
+        doc = "Principal diameter in m (generator parameter)."
+    )
+    double marine:length (
+        doc = "Principal length in m along the item's local x axis (generator parameter)."
+    )
+    double marine:thickness (
+        doc = "Principal thickness in m (generator parameter)."
+    )
+    vector3d marine:explodeDir = (0, 0, 0) (
+        doc = "Unit explode direction in the parent frame."
+    )
+    double marine:explodeDist = 0 (
+        doc = "Explode distance in m at slider = 1."
+    )
+    int marine:lodLevel = 2 (
+        doc = "0 proxy, 1 equipment, 2 full detail."
+    )
+    string marine:generator = "" (
+        doc = "Generator module and parameter-set name that produced this item."
+    )
+    string[] marine:instanceIds (
+        doc = "PointInstancer only: permanent UUID of each instance, in instance order."
+    )
+    string[] marine:instanceNames (
+        doc = "PointInstancer only: stable name of each instance (the CAD component name)."
+    )
+    rel marine:connectedTo (
+        doc = "Physical connection without nesting (coupling to flange)."
+    )
+    rel marine:serves (
+        doc = "Functional service relation (pump serves cooling system)."
+    )
+}

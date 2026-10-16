@@ -1,0 +1,36 @@
+# Runs unchanged on GitHub Actions, Forgejo/Gitea Actions (same syntax).
+name: ci
+on: [push, pull_request]
+jobs:
+  build-validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 2, lfs: true }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.13" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      - name: Install
+        run: |
+          pip install ".[dev]"
+          (cd build && npm install --no-audit --no-fund)
+          (cd viewer && npm install --no-audit --no-fund)
+      - name: Previous ID lock (append-only check)
+        run: git show HEAD~1:assets/ids.lock.json > /tmp/ids.base.json || echo '{"ids":{}}' > /tmp/ids.base.json
+      - name: Build + validate
+        env: { PXR_PLUGINPATH_NAME: "${{ github.workspace }}/schema/marine" }
+        run: python -m marinekit.build --baseline-lock /tmp/ids.base.json
+      - name: Outputs are committed and deterministic
+        run: git diff --exit-code -- library assets
+      - name: Tests
+        env: { PXR_PLUGINPATH_NAME: "${{ github.workspace }}/schema/marine" }
+        run: python -m pytest -q
+      - name: Viewer
+        run: cd viewer && npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-out
+          path: |
+            build/out/vessels
+            build/out/reports
