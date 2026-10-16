@@ -48,3 +48,13 @@ mo:InstanceShape a sh:NodeShape ;
     sh:property [ sh:path mo:instanceOf ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mo:Component ;
                   sh:message "an instance belongs to exactly one repeated Component" ] ;
     sh:property [ sh:path mo:id ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+mo:RudderShape a sh:NodeShape ;
+    sh:targetClass mo:RudderStock ;
+    sh:property [ sh:path mo:connectedTo ; sh:minCount 1 ;
+                  sh:message "a rudder stock connects to its blade and to the steering gear" ] .
+
+mo:StructureShape a sh:NodeShape ;
+    sh:targetClass mo:StructuralMember ;
+    sh:property [ sh:path mo:thickness ; sh:minCount 1 ; sh:message "every structural member declares its plate thickness" ] ;
+    sh:property [ sh:path mo:partOf ; sh:class mo:HullBlock ; sh:message "structural members belong to a hull block" ] .

@@ -37,6 +37,10 @@ export interface MarineData {
 }
 export type ColorMode = 'material' | 'equipment' | 'status';
 export type PickLevel = 'part' | 'component' | 'equipment' | 'system';
+export type HullMode = 'ghost' | 'solid' | 'hidden';
+
+/** Plating that encloses the machinery; ghosted or hidden on request. */
+const ENVELOPE_CLASSES = new Set(['ShellPlating', 'DeckPlating', 'Transom', 'Skeg', 'Bulkhead']);
 
 export interface ViewerOptions {
   manifestUrl: string;
@@ -72,6 +76,8 @@ export class MarineViewer {
   selected: THREE.Object3D | null = null;
   pickLevel: PickLevel = 'part';
   colorMode: ColorMode = 'material';
+  hullMode: HullMode = 'ghost';
+  private ghostMats = new WeakMap<THREE.Material, THREE.Material>();
   readonly loadedLod = new Map<string, Lod>();
   readonly status = new Map<string, { condition: string }>();
   private systemSlots = new Map<string, THREE.Object3D>();
@@ -360,7 +366,8 @@ export class MarineViewer {
       // not loaded yet (L0 chunk) keeps showing its proxy until the chunk arrives
       const open = (kids.length === 0 && proxies.length === 0) || this.expanded.has(m.id!) || (ancestorOnly && onPath.has(o));
       const nothingElse = kids.length === 0 && geoms.length === 0;
-      for (const g of geoms) g.visible = !hidden && open && !ancestorOnly;
+      const envelopeHidden = this.hullMode === 'hidden' && ENVELOPE_CLASSES.has(String(m.class));
+      for (const g of geoms) g.visible = !hidden && open && !ancestorOnly && !envelopeHidden;
       for (const p of proxies) p.visible = !hidden && (!open || nothingElse) && !ancestorOnly;
       for (const k of kids) {
         k.visible = true;
@@ -511,11 +518,42 @@ export class MarineViewer {
           mat = this.flat(`st:${st ?? 'none'}`, hex);
         }
       }
+      if (this.hullMode === 'ghost' && this.isEnvelope(x)) mat = this.ghost(mat as THREE.Material);
       x.material = mat;
       x.userData.shownMaterial = undefined;
     });
     if (sel) this.paintHighlight(sel, true);
     this.requestRender();
+  }
+
+  setHullMode(mode: HullMode) {
+    this.hullMode = mode;
+    this.applyVisibility();
+    this.applyColors();
+    this.emit();
+  }
+
+  private isEnvelope(mesh: THREE.Object3D): boolean {
+    for (let p: THREE.Object3D | null = mesh; p; p = p.parent) {
+      const m = p.userData.marine as MarineData | undefined;
+      if (m?.role === 'geom' && m.of) return ENVELOPE_CLASSES.has(String(this.byId.get(m.of)?.userData.marine?.class));
+      if (m?.role === 'asset' || m?.role === 'instance') return ENVELOPE_CLASSES.has(String(m.class));
+    }
+    return false;
+  }
+
+  private ghost(base: THREE.Material): THREE.Material {
+    let g = this.ghostMats.get(base);
+    if (!g) {
+      const c = (base as THREE.MeshStandardMaterial).clone();
+      c.transparent = true;
+      c.opacity = 0.16;
+      c.depthWrite = false;
+      c.side = THREE.DoubleSide;
+      this.ghostMats.set(base, c);
+      g = c;
+    }
+    return g;
   }
 
   async fetchStatuses() {

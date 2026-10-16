@@ -1,0 +1,126 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "marine:schemaVersion" = "0.1.0"
+    }
+    defaultPrim = "HullStructure"
+    metersPerUnit = 1
+    subLayers = [
+        @./stern_hull.geom.usdc@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "HullStructure" (
+    prepend apiSchemas = ["MarineAssetAPI"]
+    kind = "assembly"
+)
+{
+    token marine:class = "HullStructure"
+    string marine:code = "100"
+    string marine:function = "stern hull structure: shell, transom, skeg, steering gear flat"
+    string marine:id = "c233fa61-5531-4b8b-9075-eaecc59a8ba1"
+    int marine:lodLevel = 0
+    double marine:mass = 134620.9
+    token marine:massSource = "rollup"
+    token marine:material = "proxy"
+
+    def Xform "BlockB01" (
+        prepend references = @../../../library/hull_block/hull_block_b01_stern/hull_block_b01_stern.usda@
+    )
+    {
+        string marine:code = "100/B01"
+        string marine:definitionId = "13364153-35a9-4362-9220-704a1ac47b7f"
+        vector3d marine:explodeDir = (0, 0, 0)
+        double marine:explodeDist = 0
+        string marine:id = "d4a57655-678b-40b7-b1f9-f84a60a2b7b4"
+        rel marine:serves = </HullStructure>
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        over "Shell"
+        {
+            string marine:code = "100/B01/Shell"
+            string marine:definitionId = "3c686339-bae6-4df8-a29e-21da5a50b072"
+            string marine:id = "c27c41fa-75ce-4745-914e-68ab10267810"
+        }
+
+        over "MainDeck"
+        {
+            string marine:code = "100/B01/MainDeck"
+            string marine:definitionId = "8e64912d-24db-4a0e-ab8d-40b96875a251"
+            string marine:id = "c4ada72e-36f8-4af5-bac8-0a2abcf45bd4"
+        }
+
+        over "SteeringGearFlat"
+        {
+            string marine:code = "100/B01/SteeringGearFlat"
+            string marine:definitionId = "2d44d456-9eed-4b71-85b2-d7a62174dbb0"
+            string marine:id = "16f34073-6136-41a2-a6cf-167236de5db6"
+        }
+
+        over "WebFrame_002400"
+        {
+            string marine:code = "100/B01/WebFrame_002400"
+            string marine:definitionId = "2155c010-d079-4f71-9347-a8fa3397ad13"
+            string marine:id = "9325300e-2cbe-4116-b409-4035bb469275"
+        }
+
+        over "WebFrame_004800"
+        {
+            string marine:code = "100/B01/WebFrame_004800"
+            string marine:definitionId = "0c06ebb7-3b94-4d21-9aa7-b24313d435d4"
+            string marine:id = "b4e666bb-20c7-46c4-ac5c-c328efc9771d"
+        }
+
+        over "WebFrame_007200"
+        {
+            string marine:code = "100/B01/WebFrame_007200"
+            string marine:definitionId = "c96fe3cb-6bf7-42c4-8112-692b57a55311"
+            string marine:id = "264df0c7-9070-44c0-8bc6-4a0772799458"
+        }
+
+        over "WebFrame_009600"
+        {
+            string marine:code = "100/B01/WebFrame_009600"
+            string marine:definitionId = "cad10e5a-47f8-4711-a61b-ae1ab6863bb5"
+            string marine:id = "6d0c826c-59ab-4c86-a915-169b4b1f59b9"
+        }
+
+        over "WebFrame_012000"
+        {
+            string marine:code = "100/B01/WebFrame_012000"
+            string marine:definitionId = "f431f0ec-f414-4be6-94ab-8c6db1a879f2"
+            string marine:id = "4700da66-745b-4cfe-8271-d5509a44ce33"
+        }
+
+        over "WebFrame_014400"
+        {
+            string marine:code = "100/B01/WebFrame_014400"
+            string marine:definitionId = "43a478f0-476d-42c8-9a84-b116b11a1a12"
+            string marine:id = "ca51a93d-99fc-4807-9637-3262c940faa1"
+        }
+
+        over "Bulkhead_015989"
+        {
+            string marine:code = "100/B01/Bulkhead_015989"
+            string marine:definitionId = "398c72d3-784a-4ec6-a1a3-8a8edfb230e9"
+            string marine:id = "cb8ff266-647a-4896-951f-0064f8cb0f9e"
+        }
+
+        over "Skeg"
+        {
+            string marine:code = "100/B01/Skeg"
+            string marine:definitionId = "c2f95131-ccd2-4ea9-8f8d-5fe0c7d345dd"
+            string marine:id = "89f4fe19-014c-44cd-9c51-9cf4b619a553"
+        }
+
+        over "Transom"
+        {
+            string marine:code = "100/B01/Transom"
+            string marine:definitionId = "9a1d6478-c55d-45a0-91bc-2c3077f05222"
+            string marine:id = "8e72e46d-5c4f-4632-88e8-ae066efddd7b"
+        }
+    }
+}
+

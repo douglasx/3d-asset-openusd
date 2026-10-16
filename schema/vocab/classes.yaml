@@ -13,18 +13,27 @@
 #   mid_section diameter = 2 x largest radius where the plane x = mid cuts the mesh
 #   x_extent    value = mesh extent along x
 #   x_extent_le value <= mesh extent along x (envelope with overhangs)
+# mass_check: thin_plate -> volume = half the mesh surface area x marine:thickness
+#   (curved thin plates: tessellation error is comparable to plate thickness,
+#   so enclosed mesh volume is not a reliable measure)
 version: 0.1.0
 classes:
   Vessel:          {level: vessel,    explode: anchor}
-  Zone:            {level: zone,      explode: vertical}
+  Zone:            {level: zone,      explode: axial}
   System:          {level: system,    explode: vertical}
   PropulsionSystem: {level: system,   parent: System, explode: vertical}
+  HullStructure:   {level: system,    parent: System, explode: vertical}
+  ManeuveringSystem: {level: system,  parent: System, explode: vertical}
 
   Equipment:       {level: equipment, explode: vertical}
   MainEngine:      {level: equipment, parent: Equipment, explode: axial, require: [length], check: {length: x_extent_le}}
   Gearbox:         {level: equipment, parent: Equipment, explode: axial, require: [length], check: {length: x_extent}}
   ShaftLine:       {level: equipment, parent: Equipment, explode: axial, require: [length, diameter], check: {length: x_extent}}
   Propeller:       {level: equipment, parent: Equipment, explode: axial,    require: [diameter], check: {diameter: radial_max}}
+  HullBlock:       {level: equipment, parent: Equipment, explode: vertical, require: [length]}
+  Rudder:          {level: equipment, parent: Equipment, explode: vertical, require: [length]}
+  SteeringGear:    {level: equipment, parent: Equipment, explode: vertical}
+  TunnelThruster:  {level: equipment, parent: Equipment, explode: vertical, require: [diameter, length]}
 
   Component:       {level: component, explode: radial}
   EngineBlock:     {level: component, parent: Component, explode: anchor}
@@ -46,4 +55,22 @@ classes:
   HubCone:         {level: component, parent: Component, explode: axial, require: [diameter, length], check: {diameter: radial_max, length: x_extent}}
   Fastener:        {level: fastener,  parent: Component, explode: axial, require: [diameter, length], check: {diameter: mid_section}}
   BoltSet:         {level: fastener,  parent: Component, explode: axial, require: [diameter, length], check: {diameter: mid_section}}
+  ShellPlating:    {level: component, parent: Component, explode: anchor, require: [thickness]}
+  DeckPlating:     {level: component, parent: Component, explode: vertical, require: [thickness]}
+  InnerBottom:     {level: component, parent: Component, explode: vertical, require: [thickness]}
+  WebFrame:        {level: component, parent: Component, explode: vertical, require: [thickness]}
+  Bulkhead:        {level: component, parent: Component, explode: vertical, require: [thickness]}
+  Girder:          {level: component, parent: Component, explode: vertical, require: [thickness]}
+  Skeg:            {level: component, parent: Component, explode: vertical, require: [thickness]}
+  Transom:         {level: component, parent: Component, explode: axial, require: [thickness]}
+  RudderBlade:     {level: component, parent: Component, explode: anchor, require: [length, thickness], mass_check: thin_plate}
+  RudderStock:     {level: component, parent: Shaft, explode: vertical}
+  RudderTrunk:     {level: component, parent: Component, explode: vertical, require: [diameter, length], check: {diameter: radial_max, length: x_extent}}
+  SteeringActuator: {level: component, parent: Component, explode: anchor, require: [diameter], check: {diameter: radial_max, length: x_extent}}
+  HydraulicPowerUnit: {level: component, parent: Component, explode: radial}
+  ThrusterTunnel:  {level: component, parent: Component, explode: anchor, require: [diameter, length], check: {diameter: radial_max}}
+  ThrusterGearbox: {level: component, parent: Component, explode: axial}
+  ThrusterPropeller: {level: component, parent: Component, explode: axial, require: [diameter], check: {diameter: radial_max}}
+  Foundation:      {level: component, parent: Component, explode: vertical, require: [diameter, length], check: {diameter: radial_max, length: x_extent}}
+  ElectricMotor:   {level: component, parent: Component, explode: vertical, require: [diameter, length], check: {diameter: radial_max, length: x_extent}}
   Proxy:           {level: component, explode: anchor}

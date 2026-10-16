@@ -1,0 +1,100 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "marine:schemaVersion" = "0.1.0"
+    }
+    defaultPrim = "Maneuvering"
+    metersPerUnit = 1
+    subLayers = [
+        @./stern_maneuvering.geom.usdc@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "Maneuvering" (
+    prepend apiSchemas = ["MarineAssetAPI"]
+    kind = "assembly"
+)
+{
+    token marine:class = "ManeuveringSystem"
+    string marine:code = "420"
+    string marine:function = "steering: rudder and steering gear"
+    string marine:id = "dd01599e-a7e9-45f4-b2b2-cee0b1551b5d"
+    int marine:lodLevel = 0
+    double marine:mass = 12089.468
+    token marine:massSource = "rollup"
+    token marine:material = "proxy"
+
+    def Xform "Rudder" (
+        prepend references = @../../../library/rudder/rudder_spade_7m2/rudder_spade_7m2.usda@
+    )
+    {
+        string marine:code = "420/C101"
+        string marine:definitionId = "7ba3691c-71b1-422b-a857-2eb73507124a"
+        vector3d marine:explodeDir = (0, 0, 0)
+        double marine:explodeDist = 0
+        string marine:id = "ce0899b7-ef80-4cf2-8de5-26ec222d2ae1"
+        rel marine:serves = </Maneuvering>
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 4.4, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        over "Blade"
+        {
+            string marine:code = "420/C101/Blade"
+            string marine:definitionId = "b2b7024f-efa9-4d31-917d-73879152db93"
+            string marine:id = "9cfd6607-2ea2-4432-90f8-3c0df4bf2494"
+        }
+
+        over "Stock"
+        {
+            string marine:code = "420/C101/Stock"
+            prepend rel marine:connectedTo = </Maneuvering/SteeringGear/RotaryVaneActuator>
+            string marine:definitionId = "dfd501a9-5ddd-48c1-bd7b-640c5d5fd9c2"
+            string marine:id = "654e3fa6-04c9-4e49-9456-c99bcecb0770"
+        }
+
+        over "Trunk"
+        {
+            string marine:code = "420/C101/Trunk"
+            string marine:definitionId = "f6877f39-60c6-4393-9182-6cc3eb41d433"
+            string marine:id = "0e679f5a-f72e-467d-b545-7a131538a9ab"
+        }
+
+        over "NeckBearing"
+        {
+            string marine:code = "420/C101/NeckBearing"
+            string marine:definitionId = "b45a962d-9b71-41dc-93f9-94b540527a58"
+            string marine:id = "54aeb0ee-40e3-42b6-9cea-1a3570895f98"
+        }
+    }
+
+    def Xform "SteeringGear" (
+        prepend references = @../../../library/steering_gear/steering_gear_rv_250knm/steering_gear_rv_250knm.usda@
+    )
+    {
+        string marine:code = "420/C201"
+        string marine:definitionId = "7c90185b-536d-4a78-b925-7afa353ff08e"
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 0.8975
+        string marine:id = "fb7c6423-dc68-4a79-a777-90858b35d461"
+        rel marine:serves = </Maneuvering>
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 5.8, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        over "RotaryVaneActuator"
+        {
+            string marine:code = "420/C201/RotaryVaneActuator"
+            string marine:definitionId = "431d2326-e3be-431d-82e3-f1245e1f9711"
+            string marine:id = "e6b32cce-9cc3-4baa-99e0-9c07c62c121a"
+        }
+
+        over "PowerUnits"
+        {
+            string marine:code = "420/C201/PowerUnits"
+            string marine:definitionId = "3cf78f6a-df6f-466d-963f-802c59186456"
+            string marine:id = "8811408d-29bd-4526-b476-b10467bfdc07"
+            string[] marine:instanceIds = ["eff0d099-e81c-4c15-ae1f-c75bf493fa81", "21769a11-819f-48a9-b8f8-e77b54633535"]
+        }
+    }
+}
+

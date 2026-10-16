@@ -1,0 +1,77 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "marine:schemaVersion" = "0.1.0"
+    }
+    defaultPrim = "Maneuvering"
+    metersPerUnit = 1
+    subLayers = [
+        @./bow_maneuvering.geom.usdc@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "Maneuvering" (
+    prepend apiSchemas = ["MarineAssetAPI"]
+    kind = "assembly"
+)
+{
+    token marine:class = "ManeuveringSystem"
+    string marine:code = "420"
+    string marine:function = "low-speed manoeuvring: bow tunnel thruster"
+    string marine:id = "09fa47a6-1d49-4be9-b3c0-3f53c8dc5cf4"
+    int marine:lodLevel = 0
+    double marine:mass = 10954.628
+    token marine:massSource = "rollup"
+    token marine:material = "proxy"
+
+    def Xform "BowThruster" (
+        prepend references = @../../../library/tunnel_thruster/tunnel_thruster_d1650/tunnel_thruster_d1650.usda@
+    )
+    {
+        string marine:code = "420/C301"
+        string marine:definitionId = "1affe4ce-e39a-4cba-ab13-ee5f7e505fb2"
+        vector3d marine:explodeDir = (0, 0, 0)
+        double marine:explodeDist = 0
+        string marine:id = "0f572790-7206-4f44-a120-680b3d9740ba"
+        rel marine:serves = </Maneuvering>
+        matrix4d xformOp:transform = ( (6.123233995736766e-17, 1, 0, 0), (-1, 6.123233995736766e-17, 0, 0), (0, 0, 1, 0), (71, 0, 2.2, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        over "Tunnel"
+        {
+            string marine:code = "420/C301/Tunnel"
+            string marine:definitionId = "9e2e28e8-210c-4510-8c91-fc42d5d57730"
+            string marine:id = "5475bdd3-09a1-4755-9e14-71ddae6c605a"
+        }
+
+        over "GearPod"
+        {
+            string marine:code = "420/C301/GearPod"
+            string marine:definitionId = "2b66058a-20a8-486e-8727-b0575c525902"
+            string marine:id = "a32ce736-8bb9-4690-b7db-b37076eb0703"
+        }
+
+        over "Propeller"
+        {
+            string marine:code = "420/C301/Propeller"
+            string marine:definitionId = "d432e360-ccf1-48d3-89bb-c87419edc705"
+            string marine:id = "ef80cf3d-cf93-46fb-83fd-bc73f2490d14"
+        }
+
+        over "MotorStool"
+        {
+            string marine:code = "420/C301/MotorStool"
+            string marine:definitionId = "180840a5-b617-4206-aad6-45fcdb832c3c"
+            string marine:id = "2974ff02-09b9-44f2-a866-dce1bfa21e67"
+        }
+
+        over "Motor"
+        {
+            string marine:code = "420/C301/Motor"
+            string marine:definitionId = "3645752b-0a41-4c98-ace9-e11f227e1382"
+            string marine:id = "fa8ab19f-725d-4145-b6be-27aeb1c783a9"
+        }
+    }
+}
+

@@ -7,12 +7,18 @@
 #   propeller plane x = 3.000; hub flange face = 3.000 + 0.710 = 3.710
 #   shaft line 12.500 m long -> gearbox output flange face at 16.210
 #   gearbox input flange face is 2.720 fwd and 1.025 up -> engine at (18.930, 3.025)
+# Steering: rudder stock on the AP (x = 0); blade top at z = 4.400 under the
+#   4.600 m stern bottom; steering gear on the flat at z = 5.800.
+# Bow thruster tunnel centre at (71.000, 0, 2.200); must match
+#   generators/catalog.py BOW_THRUSTER_AT (the tunnel is trimmed to the hull there).
+# Hull blocks are built in the ship frame, so they sit at the origin.
+# rotation: [rx, ry, rz] in degrees, applied before the translation.
 version: 0.1.0
 vessel:
   name: DemoOSV
-  title: Demo offshore supply vessel (propulsion spike)
+  title: Demo offshore supply vessel (spike)
   class: Vessel
-  function: "offshore supply vessel; only the propulsion system is modelled in the spike"
+  function: "offshore supply vessel; the spike models propulsion, maneuvering and three hull blocks"
 zones:
   - name: EngineRoom
     class: Zone
@@ -46,3 +52,70 @@ zones:
           - [Propeller/Hub, ShaftLine/PropellerShaft]
           - [ShaftLine/IntermediateShaft, Gearbox/OutputFlange]
           - [Gearbox/InputFlange, MainEngine/FlexibleCoupling]
+      - name: HullStructure
+        class: HullStructure
+        code_key: system.hull_structure
+        function: "engine room hull structure: shell, decks, double bottom, seatings"
+        layer: engineroom_hull.usda
+        equipment:
+          - name: BlockB02
+            asset: hull_block/hull_block_b02_engine_room/hull_block_b02_engine_room.usda
+            code_key: equipment.hull_block_b02
+            position: [0.0, 0.0, 0.0]
+  - name: Stern
+    class: Zone
+    code_key: zone.stern
+    function: "aft body: steering gear room, stern structure and appendages"
+    systems:
+      - name: HullStructure
+        class: HullStructure
+        code_key: system.hull_structure
+        function: "stern hull structure: shell, transom, skeg, steering gear flat"
+        layer: stern_hull.usda
+        equipment:
+          - name: BlockB01
+            asset: hull_block/hull_block_b01_stern/hull_block_b01_stern.usda
+            code_key: equipment.hull_block_b01
+            position: [0.0, 0.0, 0.0]
+      - name: Maneuvering
+        class: ManeuveringSystem
+        code_key: system.maneuvering
+        function: "steering: rudder and steering gear"
+        layer: stern_maneuvering.usda
+        equipment:
+          - name: Rudder
+            asset: rudder/rudder_spade_7m2/rudder_spade_7m2.usda
+            code_key: equipment.rudder
+            position: [0.0, 0.0, 4.400]
+          - name: SteeringGear
+            asset: steering_gear/steering_gear_rv_250knm/steering_gear_rv_250knm.usda
+            code_key: equipment.steering_gear
+            position: [0.0, 0.0, 5.800]
+        connections:
+          - [Rudder/Stock, SteeringGear/RotaryVaneActuator]
+  - name: Bow
+    class: Zone
+    code_key: zone.bow
+    function: "fore body: bow thruster room and fore peak"
+    systems:
+      - name: HullStructure
+        class: HullStructure
+        code_key: system.hull_structure
+        function: "bow hull structure: shell, collision bulkhead, thruster room"
+        layer: bow_hull.usda
+        equipment:
+          - name: BlockB10
+            asset: hull_block/hull_block_b10_bow/hull_block_b10_bow.usda
+            code_key: equipment.hull_block_b10
+            position: [0.0, 0.0, 0.0]
+      - name: Maneuvering
+        class: ManeuveringSystem
+        code_key: system.maneuvering
+        function: "low-speed manoeuvring: bow tunnel thruster"
+        layer: bow_maneuvering.usda
+        equipment:
+          - name: BowThruster
+            asset: tunnel_thruster/tunnel_thruster_d1650/tunnel_thruster_d1650.usda
+            code_key: equipment.bow_thruster
+            position: [71.000, 0.0, 2.200]
+            rotation: [0, 0, 90]

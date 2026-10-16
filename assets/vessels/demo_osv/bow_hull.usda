@@ -1,0 +1,98 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "marine:schemaVersion" = "0.1.0"
+    }
+    defaultPrim = "HullStructure"
+    metersPerUnit = 1
+    subLayers = [
+        @./bow_hull.geom.usdc@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "HullStructure" (
+    prepend apiSchemas = ["MarineAssetAPI"]
+    kind = "assembly"
+)
+{
+    token marine:class = "HullStructure"
+    string marine:code = "100"
+    string marine:function = "bow hull structure: shell, collision bulkhead, thruster room"
+    string marine:id = "0e51ff3d-a804-4747-9fb8-a5fabed97300"
+    int marine:lodLevel = 0
+    double marine:mass = 66146.581
+    token marine:massSource = "rollup"
+    token marine:material = "proxy"
+
+    def Xform "BlockB10" (
+        prepend references = @../../../library/hull_block/hull_block_b10_bow/hull_block_b10_bow.usda@
+    )
+    {
+        string marine:code = "100/B10"
+        string marine:definitionId = "c8cf8917-60da-471e-9fa2-f40a6ae54311"
+        vector3d marine:explodeDir = (0, 0, 0)
+        double marine:explodeDist = 0
+        string marine:id = "54b91eca-7195-4784-bb70-7ea3ab78aad9"
+        rel marine:serves = </HullStructure>
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        over "Shell"
+        {
+            string marine:code = "100/B10/Shell"
+            string marine:definitionId = "868b2026-9824-4855-8b56-8a2923a69a8d"
+            string marine:id = "9f4d9d96-1793-4ccc-9ae8-628a6532ee09"
+        }
+
+        over "MainDeck"
+        {
+            string marine:code = "100/B10/MainDeck"
+            string marine:definitionId = "17adbd32-0abc-44ce-92f5-3b5f87c35b82"
+            string marine:id = "54d1d264-8aa0-4c3f-9996-fd0274efd6d4"
+        }
+
+        over "WebFrame_067200"
+        {
+            string marine:code = "100/B10/WebFrame_067200"
+            string marine:definitionId = "f038f096-720b-445a-9334-188547122384"
+            string marine:id = "df01507f-5e25-40ea-971a-a43b18305eba"
+        }
+
+        over "WebFrame_069300"
+        {
+            string marine:code = "100/B10/WebFrame_069300"
+            string marine:definitionId = "9e0f97e1-5c55-40d7-85f4-cf8d135892e7"
+            string marine:id = "b089b87e-bbb6-49f5-98e4-456d84fdfc0f"
+        }
+
+        over "WebFrame_072600"
+        {
+            string marine:code = "100/B10/WebFrame_072600"
+            string marine:definitionId = "5ad97f4d-427c-46b8-b5de-106f3bc9ac63"
+            string marine:id = "d2f4974d-0607-4103-86ef-46a2ce8096aa"
+        }
+
+        over "WebFrame_075600"
+        {
+            string marine:code = "100/B10/WebFrame_075600"
+            string marine:definitionId = "e19a7e11-dc07-4a62-9302-fe41949dd8d1"
+            string marine:id = "01a2edf9-dd48-40ad-a59c-e3c2e225b0b9"
+        }
+
+        over "Bulkhead_066000"
+        {
+            string marine:code = "100/B10/Bulkhead_066000"
+            string marine:definitionId = "e2bb3c75-6a90-47c7-a0fe-d362a2233d11"
+            string marine:id = "a7caf305-2e24-4bca-a069-87c3aa6b1fdb"
+        }
+
+        over "Bulkhead_073800"
+        {
+            string marine:code = "100/B10/Bulkhead_073800"
+            string marine:definitionId = "0963088f-76b6-41c5-9355-2553ec155c31"
+            string marine:id = "cb2c63a9-5467-4e2e-ba89-fa033f851fc7"
+        }
+    }
+}
+

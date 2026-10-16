@@ -321,15 +321,17 @@ def convert_vessel(vessel_usda: Path, out_dir: Path) -> dict:
         if vocab.classes().get(cls, {}).get("level") == "system":
             e["system"] = True
             box = subtree_box(prim, vprim)
+            # unique per zone: several zones can each have e.g. a HullStructure system
+            chunk_name = f"{prim.GetParent().GetName()}-{prim.GetName()}".lower()
             for lod, fn in (("L0", lambda b: build_l0(b, prim, prim, ids)),
                             ("L1", lambda b: build_l1(b, prim, ids, ratio)),
                             ("L2", lambda b: build_l2(b, prim, prim, ids))):
                 b = GltfBuilder()
                 root = fn(b)
-                p = raw / f"{prim.GetName().lower()}.{lod}.glb"
+                p = raw / f"{chunk_name}.{lod}.glb"
                 b.save(p, root, {"marine": {"schemaVersion": SCHEMA_VERSION, "upAxis": "Z",
                                             "metersPerUnit": 1.0, "system": e["id"], "lod": lod}})
-                chunks.append({"system": e["id"], "systemName": prim.GetName(), "lod": lod, "raw": str(p),
+                chunks.append({"system": e["id"], "systemName": chunk_name, "lod": lod, "raw": str(p),
                                "triangles": b.triangles, "nodes": len(b.nodes), "meshes": len(b.meshes),
                                "bbox": [box[0].round(4).tolist(), box[1].round(4).tolist()] if box else None})
         else:

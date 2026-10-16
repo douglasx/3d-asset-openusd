@@ -1,7 +1,8 @@
 # Marine vessel 3D asset pipeline
 
-Phase 1 (propulsion spike) of the plan in `doc/Marine Vessel 3D Asset Pipeline Plan and Tech Stack.pdf`.
-One command builds a propulsion system end to end: parametric generators write STEP (the simulated CAD
+Phase 1 (propulsion spike, extended with a hull section and the maneuvering system) of the plan in
+`doc/Marine Vessel 3D Asset Pipeline Plan and Tech Stack.pdf`.
+One command builds the vessel end to end: parametric generators write STEP (the simulated CAD
 export), an ingest adapter reads that STEP into OpenUSD exactly as it would read real CAD, the vessel is
 composed from a shared equipment library, and a converter publishes optimised GLB chunks that a three.js
 viewer explodes, collapses and queries by ID through a REST API.
@@ -18,8 +19,8 @@ Requires Python 3.11+ and Node 20+.
 
 ```bash
 make setup      # .venv with pinned Python deps; npm install in build/ and viewer/
-make build      # generate → ingest → layout → compose → convert → optimise → graph → validate → registry (~10 s)
-make test       # 21 tests: round trips, validators (incl. negative cases), ID joins, API
+make build      # generate → ingest → layout → compose → convert → optimise → graph → validate → registry (~25 s)
+make test       # 26 tests: round trips, validators (incl. negative cases), ID joins, API, hull fit
 make api        # builds the viewer, serves API + viewer at http://localhost:8000
 ```
 
@@ -30,11 +31,27 @@ files. `npm run single-file` additionally writes `viewer/dist/viewer-single.html
 file (code, manifest and GLB chunks inlined) that opens straight from disk or as a shared page. Live
 status needs the API; everything else works offline from the GLB data.
 
+## What the demo vessel contains
+
+| Zone | System | Equipment (library asset) |
+|---|---|---|
+| EngineRoom | Propulsion | main engine `main_engine_8l32`, gearbox `gearbox_sr_4mw`, shaft line `shaft_line_d320`, CPP propeller `propeller_cpp` (4- or 5-blade variant) |
+| EngineRoom | HullStructure | hull block B02 (x 16–30 m): shell, main deck, inner bottom, centre girder, engine seatings, web frames, fwd ER bulkhead |
+| Stern | HullStructure | hull block B01 (x −3–16 m): shell, transom, skeg, steering-gear flat, web frames, aft ER bulkhead |
+| Stern | Maneuvering | spade rudder (blade, stock, trunk, neck bearing), rotary-vane steering gear with two power units |
+| Bow | HullStructure | hull block B10 (x 66–78.5 m): shell, deck, collision bulkhead, web frames, thruster tunnel opening |
+| Bow | Maneuvering | bow tunnel thruster (tunnel trimmed to the hull, gear pod, propeller, motor and stool) |
+
+The hull form (`generators/hull/hullform.py`) is a parametric stand-in: flat bottom amidships, keel
+cut-up over the propeller, centreline skeg, transom stern and raked stem. The midbody between the
+blocks is not modelled. Hull blocks are equipment-level assets so structure explodes and collapses
+like machinery; the viewer's **Hull plating** control makes shell, decks and bulkheads see-through.
+
 ## What is in the repository
 
 | Folder | Contents | Edited by |
 |---|---|---|
-| `generators/` | Parametric equipment generators and the catalogue of parameter sets (`catalog.py`) | people |
+| `generators/` | Parametric generators (`propulsion/`, `maneuvering/`, `hull/`) and the catalogue of parameter sets (`catalog.py`) | people |
 | `assets/vessels/<vessel>/arrangement.yaml` | Vessel arrangement: equipment positions, variant choices, connections | people |
 | `schema/marine/` | Codeless `marine:` USD API schema (`schema.usda` is the source; the other two files are generated) | people |
 | `schema/vocab/` | Controlled vocabularies: classes, materials, breakdown codes, LOD budgets | people |

@@ -1,0 +1,138 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "marine:schemaVersion" = "0.1.0"
+    }
+    defaultPrim = "tunnel_thruster_d1650"
+    metersPerUnit = 1
+    subLayers = [
+        @./tunnel_thruster_d1650.geom.usdc@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "tunnel_thruster_d1650" (
+    prepend apiSchemas = ["MarineAssetAPI"]
+    assetInfo = {
+        string name = "tunnel_thruster_d1650"
+        string version = "0.1.0"
+    }
+    kind = "component"
+)
+{
+    token marine:class = "TunnelThruster"
+    double marine:diameter = 1.65
+    string marine:function = "produces transverse thrust at the bow for low-speed manoeuvring"
+    string marine:generator = "maneuvering.tunnel_thruster:tunnel_thruster_d1650"
+    token marine:geometryFidelity = "true"
+    string marine:id = "1affe4ce-e39a-4cba-ab13-ee5f7e505fb2"
+    double marine:length = 6.609499
+    int marine:lodLevel = 1
+    double marine:mass = 10954.628
+    token marine:massSource = "rollup"
+    token marine:material = "proxy"
+
+    def Xform "Tunnel" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "ThrusterTunnel"
+        double marine:diameter = 1.69
+        vector3d marine:explodeDir = (0, 0, 0)
+        double marine:explodeDist = 0
+        string marine:function = "transverse duct through the hull that guides the thruster jet"
+        token marine:geometryFidelity = "true"
+        string marine:id = "9e2e28e8-210c-4510-8c91-fc42d5d57730"
+        double marine:length = 6.609499
+        int marine:lodLevel = 2
+        double marine:mass = 5473.688
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+    }
+
+    def Xform "GearPod" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "ThrusterGearbox"
+        rel marine:connectedTo = [
+            </tunnel_thruster_d1650/Tunnel>,
+            </tunnel_thruster_d1650/MotorStool>,
+        ]
+        vector3d marine:explodeDir = (0, 1, 0)
+        double marine:explodeDist = 1.2599
+        string marine:function = "right-angle gear transferring motor power to the propeller shaft"
+        token marine:geometryFidelity = "envelope"
+        string marine:id = "2b66058a-20a8-486e-8727-b0575c525902"
+        int marine:lodLevel = 2
+        double marine:mass = 1400
+        token marine:massSource = "declared"
+        token marine:material = "paint_machinery_grey"
+    }
+
+    def Xform "Propeller" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "ThrusterPropeller"
+        rel marine:connectedTo = </tunnel_thruster_d1650/GearPod>
+        double marine:diameter = 1.56
+        vector3d marine:explodeDir = (0, -1, 0)
+        double marine:explodeDist = 1.7098
+        string marine:function = "fixed-pitch propeller producing transverse thrust in either direction"
+        token marine:geometryFidelity = "true"
+        string marine:id = "d432e360-ccf1-48d3-89bb-c87419edc705"
+        int marine:lodLevel = 2
+        double marine:mass = 693.667
+        token marine:massSource = "computed"
+        token marine:material = "bronze_nab_cu3"
+    }
+
+    def Xform "MotorStool" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Foundation"
+        rel marine:connectedTo = </tunnel_thruster_d1650/Tunnel>
+        double marine:diameter = 0.7
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 2.4297
+        string marine:function = "carries the motor on the tunnel and houses the drive coupling"
+        token marine:geometryFidelity = "true"
+        string marine:id = "180840a5-b617-4206-aad6-45fcdb832c3c"
+        double marine:length = 0.45
+        int marine:lodLevel = 2
+        double marine:mass = 187.273
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        matrix4d xformOp:transform = ( (6.123233995737e-17, 0, 1, 0), (0, 1, 0, 0), (-1, 0, 6.123233995737e-17, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Motor" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "ElectricMotor"
+        rel marine:connectedTo = </tunnel_thruster_d1650/MotorStool>
+        double marine:diameter = 0.9
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 0.36
+        string marine:function = "electric drive motor of the thruster"
+        token marine:geometryFidelity = "envelope"
+        string marine:id = "3645752b-0a41-4c98-ace9-e11f227e1382"
+        double marine:length = 1.5
+        int marine:lodLevel = 2
+        double marine:mass = 3200
+        token marine:massSource = "declared"
+        token marine:material = "paint_machinery_grey"
+        matrix4d xformOp:transform = ( (6.123233995737e-17, 0, 1, 0), (0, 1, 0, 0), (-1, 0, 6.123233995737e-17, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+}
+

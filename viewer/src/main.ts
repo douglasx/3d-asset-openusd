@@ -1,6 +1,6 @@
 import './style.css';
 import * as THREE from 'three';
-import { MarineViewer, type MarineData, type ColorMode, type PickLevel } from './MarineViewer';
+import { MarineViewer, type MarineData, type ColorMode, type PickLevel, type HullMode } from './MarineViewer';
 
 // URL parameters:
 //   manifest  manifest URL (default: bundled demo data)
@@ -203,6 +203,9 @@ async function main() {
   if (!apiBase) colorSel.querySelector<HTMLOptionElement>('option[value=status]')!.disabled = true;
   colorSel.onchange = () => viewer.setColorMode(colorSel.value as ColorMode);
   viewer.on(() => { if (colorSel.value !== viewer.colorMode) colorSel.value = viewer.colorMode; });
+  const hullSel = $<HTMLSelectElement>('hull-mode');
+  hullSel.onchange = () => viewer.setHullMode(hullSel.value as HullMode);
+  viewer.on(() => { if (hullSel.value !== viewer.hullMode) hullSel.value = viewer.hullMode; });
   const mBtn = $('btn-measure');
   mBtn.onclick = () => {
     const on = !viewer.measuring;

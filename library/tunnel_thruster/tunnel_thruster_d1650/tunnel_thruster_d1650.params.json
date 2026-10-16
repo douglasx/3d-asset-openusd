@@ -1,0 +1,22 @@
+{
+  "generator": "maneuvering.tunnel_thruster:tunnel_thruster_d1650",
+  "params": {
+    "blades": 4,
+    "motor_d": 900.0,
+    "motor_h": 1500.0,
+    "motor_mass": 3200.0,
+    "name": "tunnel_thruster_d1650",
+    "pod_d": 560.0,
+    "pod_len": 1000.0,
+    "pod_mass": 1400.0,
+    "prop_d": 1560.0,
+    "ship_x": 71000.0,
+    "ship_z": 2200.0,
+    "stool_d": 700.0,
+    "stool_h": 450.0,
+    "tunnel_id": 1650.0,
+    "tunnel_length": 9000.0,
+    "tunnel_wall": 20.0
+  },
+  "version": "0.1.0"
+}

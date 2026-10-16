@@ -1,0 +1,19 @@
+{
+  "generator": "maneuvering.steering_gear:steering_gear_rv_250knm",
+  "params": {
+    "base_d": 1650.0,
+    "base_t": 90.0,
+    "bore_d": 330.0,
+    "housing_d": 1300.0,
+    "housing_h": 700.0,
+    "housing_mass": 4800.0,
+    "hpu_h": 900.0,
+    "hpu_l": 1000.0,
+    "hpu_mass": 850.0,
+    "hpu_w": 700.0,
+    "hpu_x": -300.0,
+    "hpu_y": 1600.0,
+    "name": "steering_gear_rv_250knm"
+  },
+  "version": "0.1.0"
+}

@@ -8,7 +8,13 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Any, Callable
 
+from generators.hull import hull_block
+from generators.maneuvering import rudder, steering_gear, tunnel_thruster
 from generators.propulsion import gearbox, main_engine, propeller_cpp, shaft_line
+
+# Bow thruster position in the ship frame (mm); the tunnel is trimmed to the
+# hull here, so arrangement.yaml must place it at the same point.
+BOW_THRUSTER_AT = (71000.0, 0.0, 2200.0)
 
 
 @dataclass(frozen=True)
@@ -34,6 +40,14 @@ CATALOG: list[Entry] = [
     Entry("shaft_line", "0.1.0", shaft_line.generate, shaft_line.ShaftLineParams()),
     Entry("gearbox", "0.1.0", gearbox.generate, gearbox.GearboxParams()),
     Entry("main_engine", "0.1.0", main_engine.generate, main_engine.MainEngineParams()),
+    Entry("hull_block", "0.1.0", hull_block.generate, hull_block.STERN),
+    Entry("hull_block", "0.1.0", hull_block.generate, hull_block.ENGINE_ROOM),
+    Entry("hull_block", "0.1.0", hull_block.generate, hull_block.BOW),
+    Entry("rudder", "0.1.0", rudder.generate, rudder.RudderParams()),
+    Entry("steering_gear", "0.1.0", steering_gear.generate, steering_gear.SteeringGearParams()),
+    Entry("tunnel_thruster", "0.1.0", tunnel_thruster.generate,
+          tunnel_thruster.TunnelThrusterParams(tunnel_length=9000.0, ship_x=BOW_THRUSTER_AT[0],
+                                               ship_z=BOW_THRUSTER_AT[2])),
 ]
 
 # Variant wrappers: one library asset that switches between catalog entries.

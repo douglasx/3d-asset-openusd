@@ -1,0 +1,87 @@
+{
+  "generator": "hull.hull_block:hull_block_b01_stern",
+  "params": {
+    "bulkhead_t": 11.0,
+    "bulkheads": [
+      15989.0
+    ],
+    "centre_girder": null,
+    "code_suffix": "",
+    "deck_t": 12.0,
+    "flats": [
+      [
+        "SteeringGearFlat",
+        -2600.0,
+        3600.0,
+        5800.0
+      ]
+    ],
+    "form": {
+      "beam": 18000.0,
+      "beam_transom": 16000.0,
+      "bilge_radius": 1500.0,
+      "cutup_height": 4600.0,
+      "depth": 8000.0,
+      "name": "demo_osv_form",
+      "stem_halfwidth": 120.0,
+      "x_cutup_aft": 4500.0,
+      "x_cutup_fwd": 18000.0,
+      "x_parallel_aft": 8000.0,
+      "x_parallel_fwd": 62000.0,
+      "x_stem_deck": 78500.0,
+      "x_stem_keel": 75500.0,
+      "x_transom": -3000.0
+    },
+    "inner_bottom": null,
+    "name": "hull_block_b01_stern",
+    "openings": [
+      {
+        "axis": "x",
+        "center": [
+          0.0,
+          0.0,
+          2000.0
+        ],
+        "name": "shaft",
+        "radius": 300.0,
+        "span": [
+          3500.0,
+          16500.0
+        ]
+      },
+      {
+        "axis": "z",
+        "center": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "name": "rudder_stock",
+        "radius": 310.0,
+        "span": [
+          3000.0,
+          7000.0
+        ]
+      }
+    ],
+    "ruled": false,
+    "seatings": [],
+    "shell_t": 14.0,
+    "skeg": true,
+    "station_step": 1000.0,
+    "transom": true,
+    "web_depth": 450.0,
+    "web_t": 12.0,
+    "webs": [
+      2400.0,
+      4800.0,
+      7200.0,
+      9600.0,
+      12000.0,
+      14400.0
+    ],
+    "x0": -3000.0,
+    "x1": 16000.0
+  },
+  "version": "0.1.0"
+}

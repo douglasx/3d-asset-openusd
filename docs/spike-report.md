@@ -71,6 +71,45 @@ on the declared 3.600 m diameter.
    before small, fasteners last). Bearings and bolts still move sideways where their axial path is
    blocked; override them per prim if that matters.
 
+## Extension: hull section and maneuvering system (16 Oct 2026)
+
+Added through the same pipeline, with no changes to the IDs of existing parts (the append-only lock
+check against the previous build passed).
+
+| Added | Contents | Mass |
+|---|---|---|
+| Hull form | Parametric lines consistent with the machinery: keel cut-up to 4.6 m over the propeller (0.8 m tip clearance), skeg around the stern tube, transom at x = −3 m, raked stem | – |
+| Hull block B01, stern | shell, transom, hollow plated skeg, steering-gear flat, 6 web frames, aft ER bulkhead; cut-outs for shaft and rudder trunk | 134.6 t |
+| Hull block B02, engine room | shell, main deck, inner bottom at 0.9 m, centre girder, engine seatings under the 8L32, 5 web frames, fwd ER bulkhead | 124.1 t |
+| Hull block B10, bow | shell, deck, 4 web frames, thruster-room and collision bulkheads, tunnel opening | 66.1 t |
+| Rudder | NACA 0018 spade blade (16 mm plating), stock Ø320, trunk, neck bearing | 5.6 t |
+| Steering gear | rotary-vane actuator, two hydraulic power units (instanced) | 6.5 t |
+| Bow thruster | tunnel Ø1650 trimmed to the hull, gear pod, Ø1560 propeller, motor on stool | 11 t |
+
+Vessel now: 3 zones, 6 systems, 92 part occurrences and 62 individually tracked repeated parts,
+440 t, 62k triangles at full detail across all chunks. Build ~25 s; 26 tests; outputs byte-identical
+across rebuilds (69 files).
+
+What the extension surfaced (all fixed, all now guarded by tests or validators):
+
+1. **STEP silently drops offset geometry.** 2D offsets in OpenCascade are stored as offset curves;
+   the STEP writer omits them, so the hollow rudder blade came back solid after exchange. Offsets are
+   now converted to NURBS, and the STEP round-trip validator compares surface areas so dropped faces
+   fail the build. Real CAD exports can hit the same problem.
+2. **Closed hollow solids lose their void through STEP.** The rudder blade is modelled as built (open
+   skin plus top plate) rather than a solid with an internal void.
+3. **Plate thickness must be measured normal to the surface.** Offsetting in the section plane made
+   the flared bow plating up to 40% thinner than declared; the inner skin now uses t·√(1+s²).
+4. **Spline lofts overshoot where sections change fast** (stem), so inner and outer skins crossed;
+   the bow block uses a ruled loft at 0.5 m stations.
+5. **Long boolean cutters degrade tolerance**; cutters are bounded to the hull extent.
+6. The mass validator caught 1–3 as real geometry defects. Thin curved plates where mesh volume is
+   unreliable can opt into an area × thickness check (`mass_check: thin_plate` in `classes.yaml`).
+
+Simplifications to know about: the hull lines are not a faired design; longitudinal stiffeners,
+brackets and the midbody are not modelled; structure will come from OCX in phase 3. Breakdown codes
+for the new items are placeholders like the rest.
+
 ## Licences checked (16 Oct 2026)
 
 | Component | Licence | Source |

@@ -1,0 +1,79 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "marine:schemaVersion" = "0.1.0"
+    }
+    defaultPrim = "steering_gear_rv_250knm"
+    metersPerUnit = 1
+    subLayers = [
+        @./steering_gear_rv_250knm.geom.usdc@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "steering_gear_rv_250knm" (
+    prepend apiSchemas = ["MarineAssetAPI"]
+    assetInfo = {
+        string name = "steering_gear_rv_250knm"
+        string version = "0.1.0"
+    }
+    kind = "component"
+)
+{
+    token marine:class = "SteeringGear"
+    string marine:function = "turns the rudder on bridge command; redundant power units"
+    string marine:generator = "maneuvering.steering_gear:steering_gear_rv_250knm"
+    token marine:geometryFidelity = "true"
+    string marine:id = "7c90185b-536d-4a78-b925-7afa353ff08e"
+    double marine:length = 0.79
+    int marine:lodLevel = 1
+    double marine:mass = 6500
+    token marine:massSource = "rollup"
+    token marine:material = "proxy"
+
+    def Xform "RotaryVaneActuator" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "SteeringActuator"
+        double marine:diameter = 1.65
+        vector3d marine:explodeDir = (0, 0, 0)
+        double marine:explodeDist = 0
+        string marine:function = "hydraulic rotary vane that turns the rudder stock"
+        token marine:geometryFidelity = "envelope"
+        string marine:id = "431d2326-e3be-431d-82e3-f1245e1f9711"
+        double marine:length = 0.79
+        int marine:lodLevel = 2
+        double marine:mass = 4800
+        token marine:massSource = "declared"
+        token marine:material = "paint_machinery_grey"
+        matrix4d xformOp:transform = ( (6.123233995737e-17, 0, 1, 0), (0, 1, 0, 0), (-1, 0, 6.123233995737e-17, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def PointInstancer "PowerUnits" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "HydraulicPowerUnit"
+        rel marine:connectedTo = </steering_gear_rv_250knm/RotaryVaneActuator>
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 0.8659
+        string marine:function = "electric-motor-driven pump supplying oil to the actuator (one running, one standby)"
+        token marine:geometryFidelity = "envelope"
+        string marine:id = "3cf78f6a-df6f-466d-963f-802c59186456"
+        string[] marine:instanceIds = ["6daff4fe-2f7e-4360-9cc5-57bdd306d904", "284af064-89fb-4813-a7cc-9876283d5c7b"]
+        string[] marine:instanceNames = ["HPU_1", "HPU_2"]
+        int marine:lodLevel = 2
+        double marine:mass = 1700
+        token marine:massSource = "declared"
+        token marine:material = "paint_machinery_grey"
+        quath[] orientations = [(1, 0, 0, 0), (1, 0, 0, 0)]
+        point3f[] positions = [(-0.3, 1.6, 0), (-0.3, -1.6, 0)]
+        int[] protoIndices = [0, 0]
+        rel prototypes = </steering_gear_rv_250knm/PowerUnits/Prototypes/geom>
+    }
+}
+

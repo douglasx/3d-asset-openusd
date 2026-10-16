@@ -1,0 +1,65 @@
+{
+  "generator": "hull.hull_block:hull_block_b10_bow",
+  "params": {
+    "bulkhead_t": 11.0,
+    "bulkheads": [
+      66000.0,
+      73800.0
+    ],
+    "centre_girder": null,
+    "code_suffix": "",
+    "deck_t": 12.0,
+    "flats": [],
+    "form": {
+      "beam": 18000.0,
+      "beam_transom": 16000.0,
+      "bilge_radius": 1500.0,
+      "cutup_height": 4600.0,
+      "depth": 8000.0,
+      "name": "demo_osv_form",
+      "stem_halfwidth": 120.0,
+      "x_cutup_aft": 4500.0,
+      "x_cutup_fwd": 18000.0,
+      "x_parallel_aft": 8000.0,
+      "x_parallel_fwd": 62000.0,
+      "x_stem_deck": 78500.0,
+      "x_stem_keel": 75500.0,
+      "x_transom": -3000.0
+    },
+    "inner_bottom": null,
+    "name": "hull_block_b10_bow",
+    "openings": [
+      {
+        "axis": "y",
+        "center": [
+          71000.0,
+          0.0,
+          2200.0
+        ],
+        "name": "bow_thruster_tunnel",
+        "radius": 850.0,
+        "span": [
+          -12000.0,
+          12000.0
+        ]
+      }
+    ],
+    "ruled": true,
+    "seatings": [],
+    "shell_t": 14.0,
+    "skeg": false,
+    "station_step": 500.0,
+    "transom": false,
+    "web_depth": 450.0,
+    "web_t": 12.0,
+    "webs": [
+      67200.0,
+      69300.0,
+      72600.0,
+      75600.0
+    ],
+    "x0": 66000.0,
+    "x1": 78500.0
+  },
+  "version": "0.1.0"
+}

@@ -1,0 +1,64 @@
+{
+  "generator": "hull.hull_block:hull_block_b02_engine_room",
+  "params": {
+    "bulkhead_t": 11.0,
+    "bulkheads": [
+      29989.0
+    ],
+    "centre_girder": [
+      16000.0,
+      30000.0
+    ],
+    "code_suffix": "",
+    "deck_t": 12.0,
+    "flats": [],
+    "form": {
+      "beam": 18000.0,
+      "beam_transom": 16000.0,
+      "bilge_radius": 1500.0,
+      "cutup_height": 4600.0,
+      "depth": 8000.0,
+      "name": "demo_osv_form",
+      "stem_halfwidth": 120.0,
+      "x_cutup_aft": 4500.0,
+      "x_cutup_fwd": 18000.0,
+      "x_parallel_aft": 8000.0,
+      "x_parallel_fwd": 62000.0,
+      "x_stem_deck": 78500.0,
+      "x_stem_keel": 75500.0,
+      "x_transom": -3000.0
+    },
+    "inner_bottom": [
+      16000.0,
+      30000.0,
+      900.0
+    ],
+    "name": "hull_block_b02_engine_room",
+    "openings": [],
+    "ruled": false,
+    "seatings": [
+      [
+        19670.0,
+        24670.0,
+        800.0,
+        2375.0
+      ]
+    ],
+    "shell_t": 14.0,
+    "skeg": false,
+    "station_step": 1000.0,
+    "transom": false,
+    "web_depth": 450.0,
+    "web_t": 12.0,
+    "webs": [
+      18000.0,
+      20400.0,
+      22800.0,
+      25200.0,
+      27600.0
+    ],
+    "x0": 16000.0,
+    "x1": 30000.0
+  },
+  "version": "0.1.0"
+}

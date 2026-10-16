@@ -23,7 +23,7 @@ from .explode import load_overrides, run_on_stage
 from .ids import IdLock
 from .paths import ASSETS, LIBRARY
 from .usd_io import SCHEMA_VERSION, gf_matrix, get_marine, is_asset, set_marine
-from .model import translate
+from .model import rot_x, rot_y, rot_z, translate
 
 
 def _new_layer_stage(path: Path):
@@ -82,7 +82,9 @@ def compose_system(vessel: str, vdir: Path, zone_path: str, sysdef: dict, lock: 
         eprim.GetReferences().AddReference(rel_asset.as_posix())
         for vset, sel in (eq.get("variants") or {}).items():
             eprim.GetVariantSets().GetVariantSet(vset).SetVariantSelection(str(sel))
-        UsdGeom.Xformable(eprim).MakeMatrixXform().Set(gf_matrix(translate(*eq["position"])))
+        rx, ry, rz = eq.get("rotation", [0, 0, 0])
+        place = translate(*eq["position"]) @ rot_z(rz) @ rot_y(ry) @ rot_x(rx)
+        UsdGeom.Xformable(eprim).MakeMatrixXform().Set(gf_matrix(place))
         ecode = codes[eq["code_key"]]
         eprim.CreateRelationship("marine:serves", custom=False).SetTargets([Sdf.Path(root)])
         # occurrence IDs for every asset prim in the referenced subtree

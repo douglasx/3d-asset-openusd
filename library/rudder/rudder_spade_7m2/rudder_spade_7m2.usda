@@ -1,0 +1,121 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "marine:schemaVersion" = "0.1.0"
+    }
+    defaultPrim = "rudder_spade_7m2"
+    metersPerUnit = 1
+    subLayers = [
+        @./rudder_spade_7m2.geom.usdc@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "rudder_spade_7m2" (
+    prepend apiSchemas = ["MarineAssetAPI"]
+    assetInfo = {
+        string name = "rudder_spade_7m2"
+        string version = "0.1.0"
+    }
+    kind = "component"
+)
+{
+    token marine:class = "Rudder"
+    string marine:function = "produces the side force that turns the ship"
+    string marine:generator = "maneuvering.rudder:rudder_spade_7m2"
+    token marine:geometryFidelity = "true"
+    string marine:id = "7ba3691c-71b1-422b-a857-2eb73507124a"
+    double marine:length = 3.6
+    int marine:lodLevel = 1
+    double marine:mass = 5589.468
+    token marine:massSource = "rollup"
+    token marine:material = "proxy"
+
+    def Xform "Blade" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "RudderBlade"
+        rel marine:connectedTo = </rudder_spade_7m2/Stock>
+        vector3d marine:explodeDir = (0, 0, 0)
+        double marine:explodeDist = 0
+        string marine:function = "deflects propeller slipstream to produce steering force"
+        token marine:geometryFidelity = "true"
+        string marine:id = "b2b7024f-efa9-4d31-917d-73879152db93"
+        double marine:length = 3.6
+        int marine:lodLevel = 2
+        double marine:mass = 2067.204
+        token marine:massSource = "computed"
+        token marine:material = "steel_rudder"
+        double marine:thickness = 0.016
+    }
+
+    def Xform "Stock" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "RudderStock"
+        double marine:diameter = 0.32
+        vector3d marine:explodeDir = (0, 1, 0)
+        double marine:explodeDist = 0.5641
+        string marine:function = "transmits steering torque from the steering gear to the blade"
+        token marine:geometryFidelity = "true"
+        string marine:id = "dfd501a9-5ddd-48c1-bd7b-640c5d5fd9c2"
+        double marine:length = 3.5
+        int marine:lodLevel = 2
+        double marine:mass = 2209.671
+        token marine:massSource = "computed"
+        token marine:material = "steel_forged_34crnimo6"
+        matrix4d xformOp:transform = ( (6.123233995737e-17, 0, 1, 0), (0, 1, 0, 0), (-1, 0, 6.123233995737e-17, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Trunk" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "RudderTrunk"
+        double marine:diameter = 0.6
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 0.2507
+        string marine:function = "watertight tube carrying the stock through the hull bottom"
+        token marine:geometryFidelity = "true"
+        string marine:id = "f6877f39-60c6-4393-9182-6cc3eb41d433"
+        double marine:length = 1.2
+        int marine:lodLevel = 2
+        double marine:mass = 813.83
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        matrix4d xformOp:transform = ( (6.123233995737e-17, 0, 1, 0), (0, 1, 0, 0), (-1, 0, 6.123233995737e-17, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "NeckBearing" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Bearing"
+        rel marine:connectedTo = [
+            </rudder_spade_7m2/Stock>,
+            </rudder_spade_7m2/Trunk>,
+        ]
+        double marine:diameter = 0.324
+        vector3d marine:explodeDir = (1, 0, 0)
+        double marine:explodeDist = 0.6268
+        string marine:function = "radial support of the rudder stock where it leaves the hull"
+        token marine:geometryFidelity = "true"
+        string marine:id = "b45a962d-9b71-41dc-93f9-94b540527a58"
+        double marine:length = 0.6
+        int marine:lodLevel = 2
+        double marine:mass = 498.763
+        token marine:massSource = "computed"
+        token marine:material = "whitemetal_babbitt"
+        matrix4d xformOp:transform = ( (6.123233995737e-17, 0, 1, 0), (0, 1, 0, 0), (-1, 0, 6.123233995737e-17, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+}
+

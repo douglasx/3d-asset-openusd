@@ -29,6 +29,13 @@ mo:Gearbox a owl:Class ; rdfs:subClassOf mo:Equipment .
 mo:ShaftLine a owl:Class ; rdfs:subClassOf mo:Equipment .
 mo:Propeller a owl:Class ; rdfs:subClassOf mo:Equipment .
 
+mo:HullStructure a owl:Class ; rdfs:subClassOf mo:System .
+mo:ManeuveringSystem a owl:Class ; rdfs:subClassOf mo:System .
+mo:HullBlock a owl:Class ; rdfs:subClassOf mo:Equipment ; rdfs:comment "Prefabricated hull block (structure is equipment-level in the asset hierarchy)." .
+mo:Rudder a owl:Class ; rdfs:subClassOf mo:Equipment .
+mo:SteeringGear a owl:Class ; rdfs:subClassOf mo:Equipment .
+mo:TunnelThruster a owl:Class ; rdfs:subClassOf mo:Equipment .
+
 # ---- components
 mo:EngineBlock a owl:Class ; rdfs:subClassOf mo:Component .
 mo:CylinderHead a owl:Class ; rdfs:subClassOf mo:Component .
@@ -50,6 +57,25 @@ mo:HubCone a owl:Class ; rdfs:subClassOf mo:Component .
 mo:Fastener a owl:Class ; rdfs:subClassOf mo:Component .
 mo:BoltSet a owl:Class ; rdfs:subClassOf mo:Fastener .
 mo:Proxy a owl:Class ; rdfs:subClassOf mo:Component .
+mo:StructuralMember a owl:Class ; rdfs:subClassOf mo:Component .
+mo:ShellPlating a owl:Class ; rdfs:subClassOf mo:StructuralMember .
+mo:DeckPlating a owl:Class ; rdfs:subClassOf mo:StructuralMember .
+mo:InnerBottom a owl:Class ; rdfs:subClassOf mo:StructuralMember .
+mo:WebFrame a owl:Class ; rdfs:subClassOf mo:StructuralMember .
+mo:Bulkhead a owl:Class ; rdfs:subClassOf mo:StructuralMember .
+mo:Girder a owl:Class ; rdfs:subClassOf mo:StructuralMember .
+mo:Skeg a owl:Class ; rdfs:subClassOf mo:StructuralMember .
+mo:Transom a owl:Class ; rdfs:subClassOf mo:StructuralMember .
+mo:RudderBlade a owl:Class ; rdfs:subClassOf mo:Component .
+mo:RudderStock a owl:Class ; rdfs:subClassOf mo:Shaft .
+mo:RudderTrunk a owl:Class ; rdfs:subClassOf mo:Component .
+mo:SteeringActuator a owl:Class ; rdfs:subClassOf mo:Component .
+mo:HydraulicPowerUnit a owl:Class ; rdfs:subClassOf mo:Component .
+mo:ThrusterTunnel a owl:Class ; rdfs:subClassOf mo:Component .
+mo:ThrusterGearbox a owl:Class ; rdfs:subClassOf mo:Component .
+mo:ThrusterPropeller a owl:Class ; rdfs:subClassOf mo:Component .
+mo:Foundation a owl:Class ; rdfs:subClassOf mo:Component .
+mo:ElectricMotor a owl:Class ; rdfs:subClassOf mo:Component .
 
 # ---- relations
 # No rdfs:domain/range here on purpose: RDFS inference would then classify

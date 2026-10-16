@@ -15,5 +15,8 @@ tessellation:
     PropellerBlade: {relative_deflection: 0.008, angular_deflection: 0.5}
     BoltSet: {relative_deflection: 0.01, angular_deflection: 0.6}
     CylinderHead: {relative_deflection: 0.01, angular_deflection: 0.6}
+    ShellPlating: {relative_deflection: 0.006, angular_deflection: 0.8}
+    RudderBlade: {relative_deflection: 0.008, angular_deflection: 0.6}
+    ThrusterPropeller: {relative_deflection: 0.012, angular_deflection: 0.6}
 mass_check:
   tolerance: 0.03          # |mesh volume x density - declared| / declared

@@ -1,0 +1,126 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "marine:schemaVersion" = "0.1.0"
+    }
+    defaultPrim = "HullStructure"
+    metersPerUnit = 1
+    subLayers = [
+        @./engineroom_hull.geom.usdc@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "HullStructure" (
+    prepend apiSchemas = ["MarineAssetAPI"]
+    kind = "assembly"
+)
+{
+    token marine:class = "HullStructure"
+    string marine:code = "100"
+    string marine:function = "engine room hull structure: shell, decks, double bottom, seatings"
+    string marine:id = "c9333180-87b5-43a5-bb56-b48110268200"
+    int marine:lodLevel = 0
+    double marine:mass = 124124.576
+    token marine:massSource = "rollup"
+    token marine:material = "proxy"
+
+    def Xform "BlockB02" (
+        prepend references = @../../../library/hull_block/hull_block_b02_engine_room/hull_block_b02_engine_room.usda@
+    )
+    {
+        string marine:code = "100/B02"
+        string marine:definitionId = "6220063f-9639-4770-8b33-d19032f65f09"
+        vector3d marine:explodeDir = (0, 0, 0)
+        double marine:explodeDist = 0
+        string marine:id = "4e00b112-d2b1-48ac-a9a9-696ad832302f"
+        rel marine:serves = </HullStructure>
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        over "Shell"
+        {
+            string marine:code = "100/B02/Shell"
+            string marine:definitionId = "1be98791-0127-421e-9ec6-bf65e4d2e574"
+            string marine:id = "93b86448-2d09-4ab2-a11c-d6bf4488605b"
+        }
+
+        over "MainDeck"
+        {
+            string marine:code = "100/B02/MainDeck"
+            string marine:definitionId = "6951ff66-44ab-4d4e-9e59-d32c5f01228e"
+            string marine:id = "52726a50-c992-49af-8786-5d4628d14937"
+        }
+
+        over "InnerBottom"
+        {
+            string marine:code = "100/B02/InnerBottom"
+            string marine:definitionId = "1e546f6a-1650-4098-aa48-5e647c3f5ef0"
+            string marine:id = "2d6fc0c0-6e28-4511-a5a7-9f69adb87d62"
+        }
+
+        over "CentreGirder"
+        {
+            string marine:code = "100/B02/CentreGirder"
+            string marine:definitionId = "029938bf-71b8-4397-bef5-6f031f952eef"
+            string marine:id = "67dbea87-14fd-45cc-8fdb-e2cd26a8b881"
+        }
+
+        over "EngineSeating_P"
+        {
+            string marine:code = "100/B02/EngineSeating_P"
+            string marine:definitionId = "736a2ef3-616a-4f8e-9dd4-fa48ff2ef0ef"
+            string marine:id = "ad7b19e2-52bd-4dc1-8a33-230a6ac30cd4"
+        }
+
+        over "EngineSeating_S"
+        {
+            string marine:code = "100/B02/EngineSeating_S"
+            string marine:definitionId = "aac42ce5-0279-4687-8af2-d6f2b86b28a2"
+            string marine:id = "f4bfa20f-f107-411e-9cfa-f2906387bfd0"
+        }
+
+        over "WebFrame_018000"
+        {
+            string marine:code = "100/B02/WebFrame_018000"
+            string marine:definitionId = "da051966-63d5-4cae-a158-c0cb293f67ca"
+            string marine:id = "38b99be7-0e3b-4856-b651-aa490475533f"
+        }
+
+        over "WebFrame_020400"
+        {
+            string marine:code = "100/B02/WebFrame_020400"
+            string marine:definitionId = "a464cb5c-63fb-4465-bf47-febee035237f"
+            string marine:id = "f8cbdef2-6f19-434e-907c-81753b7b1201"
+        }
+
+        over "WebFrame_022800"
+        {
+            string marine:code = "100/B02/WebFrame_022800"
+            string marine:definitionId = "6b404149-c0a3-4c6c-83e7-ce66af726091"
+            string marine:id = "7da5ad79-ce23-4ac6-8f32-491030b39929"
+        }
+
+        over "WebFrame_025200"
+        {
+            string marine:code = "100/B02/WebFrame_025200"
+            string marine:definitionId = "c04b86b9-59d9-4185-b629-eb00f2eb10c8"
+            string marine:id = "2782ae05-e5e9-4b63-b093-92cddba697d5"
+        }
+
+        over "WebFrame_027600"
+        {
+            string marine:code = "100/B02/WebFrame_027600"
+            string marine:definitionId = "c790ab2f-cd58-4159-a0a2-52efd40a6ad8"
+            string marine:id = "c6f91a4f-ba6d-4ebb-b7b3-8844fc4cc9ed"
+        }
+
+        over "Bulkhead_029989"
+        {
+            string marine:code = "100/B02/Bulkhead_029989"
+            string marine:definitionId = "60b533dd-168f-41b9-a29c-c47e032d2e62"
+            string marine:id = "c620f46d-eef1-4471-b888-20ffff107225"
+        }
+    }
+}
+

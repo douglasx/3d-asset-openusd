@@ -1,0 +1,178 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "marine:schemaVersion" = "0.1.0"
+    }
+    defaultPrim = "hull_block_b10_bow"
+    metersPerUnit = 1
+    subLayers = [
+        @./hull_block_b10_bow.geom.usdc@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "hull_block_b10_bow" (
+    prepend apiSchemas = ["MarineAssetAPI"]
+    assetInfo = {
+        string name = "hull_block_b10_bow"
+        string version = "0.1.0"
+    }
+    kind = "component"
+)
+{
+    token marine:class = "HullBlock"
+    string marine:function = "prefabricated hull block: shell, decks and internal structure"
+    string marine:generator = "hull.hull_block:hull_block_b10_bow"
+    token marine:geometryFidelity = "true"
+    string marine:id = "c8cf8917-60da-471e-9fa2-f40a6ae54311"
+    double marine:length = 12.5
+    int marine:lodLevel = 1
+    double marine:mass = 66146.581
+    token marine:massSource = "rollup"
+    token marine:material = "proxy"
+
+    def Xform "Shell" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "ShellPlating"
+        vector3d marine:explodeDir = (0, 0, 0)
+        double marine:explodeDist = 0
+        string marine:function = "watertight envelope; carries global hull girder loads"
+        token marine:geometryFidelity = "true"
+        string marine:id = "868b2026-9824-4855-8b56-8a2923a69a8d"
+        int marine:lodLevel = 2
+        double marine:mass = 30617.051
+        token marine:massSource = "computed"
+        token marine:material = "paint_hull_shell"
+        double marine:thickness = 0.014
+    }
+
+    def Xform "MainDeck" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "DeckPlating"
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 0.9167
+        string marine:function = "weather deck; closes the hull girder and carries deck loads"
+        token marine:geometryFidelity = "true"
+        string marine:id = "17adbd32-0abc-44ce-92f5-3b5f87c35b82"
+        int marine:lodLevel = 2
+        double marine:mass = 15187.898
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        double marine:thickness = 0.012
+    }
+
+    def Xform "WebFrame_067200" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "WebFrame"
+        vector3d marine:explodeDir = (-1, 0, 0)
+        double marine:explodeDist = 1.6042
+        string marine:function = "transverse ring supporting shell and deck longitudinals"
+        token marine:geometryFidelity = "true"
+        string marine:id = "f038f096-720b-445a-9334-188547122384"
+        int marine:lodLevel = 2
+        double marine:mass = 1755.578
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        double marine:thickness = 0.012
+    }
+
+    def Xform "WebFrame_069300" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "WebFrame"
+        vector3d marine:explodeDir = (-1, 0, 0)
+        double marine:explodeDist = 4.1251
+        string marine:function = "transverse ring supporting shell and deck longitudinals"
+        token marine:geometryFidelity = "true"
+        string marine:id = "9e0f97e1-5c55-40d7-85f4-cf8d135892e7"
+        int marine:lodLevel = 2
+        double marine:mass = 1637.523
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        double marine:thickness = 0.012
+    }
+
+    def Xform "WebFrame_072600" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "WebFrame"
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 9.167
+        string marine:function = "transverse ring supporting shell and deck longitudinals"
+        token marine:geometryFidelity = "true"
+        string marine:id = "5ad97f4d-427c-46b8-b5de-106f3bc9ac63"
+        int marine:lodLevel = 2
+        double marine:mass = 1423.555
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        double marine:thickness = 0.012
+    }
+
+    def Xform "WebFrame_075600" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "WebFrame"
+        vector3d marine:explodeDir = (1, 0, 0)
+        double marine:explodeDist = 3.6668
+        string marine:function = "transverse ring supporting shell and deck longitudinals"
+        token marine:geometryFidelity = "true"
+        string marine:id = "e19a7e11-dc07-4a62-9302-fe41949dd8d1"
+        int marine:lodLevel = 2
+        double marine:mass = 1169.428
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        double marine:thickness = 0.012
+    }
+
+    def Xform "Bulkhead_066000" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Bulkhead"
+        vector3d marine:explodeDir = (-1, 0, 0)
+        double marine:explodeDist = 1.1459
+        string marine:function = "watertight transverse bulkhead; subdivision and transverse strength"
+        token marine:geometryFidelity = "true"
+        string marine:id = "e2bb3c75-6a90-47c7-a0fe-d362a2233d11"
+        int marine:lodLevel = 2
+        double marine:mass = 9496.806
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        double marine:thickness = 0.011
+    }
+
+    def Xform "Bulkhead_073800" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Bulkhead"
+        vector3d marine:explodeDir = (1, 0, 0)
+        double marine:explodeDist = 5.0418
+        string marine:function = "watertight transverse bulkhead; subdivision and transverse strength"
+        token marine:geometryFidelity = "true"
+        string marine:id = "0963088f-76b6-41c5-9355-2553ec155c31"
+        int marine:lodLevel = 2
+        double marine:mass = 4858.742
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        double marine:thickness = 0.011
+    }
+}
+

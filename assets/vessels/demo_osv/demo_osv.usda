@@ -22,10 +22,10 @@ def Xform "DemoOSV" (
 {
     token marine:class = "Vessel"
     string marine:code = "V.DEMO-OSV"
-    string marine:function = "offshore supply vessel; only the propulsion system is modelled in the spike"
+    string marine:function = "offshore supply vessel; the spike models propulsion, maneuvering and three hull blocks"
     string marine:id = "65d5b507-3573-4e91-8cb1-b00aab377d9d"
     int marine:lodLevel = 0
-    double marine:mass = 91820.135
+    double marine:mass = 439756.288
     token marine:massSource = "rollup"
     token marine:material = "proxy"
 
@@ -41,7 +41,7 @@ def Xform "DemoOSV" (
         string marine:function = "machinery space housing main propulsion"
         string marine:id = "30ade58c-ffc2-4838-a8f8-ab1df44b7a38"
         int marine:lodLevel = 0
-        double marine:mass = 91820.135
+        double marine:mass = 215944.711
         token marine:massSource = "rollup"
         token marine:material = "proxy"
 
@@ -49,8 +49,82 @@ def Xform "DemoOSV" (
             prepend payload = @./propulsion.usda@
         )
         {
+            vector3d marine:explodeDir = (0, 0, 1)
+            double marine:explodeDist = 8.2556
+        }
+
+        def Xform "HullStructure" (
+            prepend payload = @./engineroom_hull.usda@
+        )
+        {
             vector3d marine:explodeDir = (0, 0, 0)
             double marine:explodeDist = 0
+        }
+    }
+
+    def Xform "Stern" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "assembly"
+    )
+    {
+        token marine:class = "Zone"
+        string marine:code = "Z.ST"
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 9.2234
+        string marine:function = "aft body: steering gear room, stern structure and appendages"
+        string marine:id = "4945368a-79c2-43e8-a06e-e36a81ebff4a"
+        int marine:lodLevel = 0
+        double marine:mass = 146710.368
+        token marine:massSource = "rollup"
+        token marine:material = "proxy"
+
+        def Xform "HullStructure" (
+            prepend payload = @./stern_hull.usda@
+        )
+        {
+            vector3d marine:explodeDir = (0, 0, 0)
+            double marine:explodeDist = 0
+        }
+
+        def Xform "Maneuvering" (
+            prepend payload = @./stern_maneuvering.usda@
+        )
+        {
+            vector3d marine:explodeDir = (-1, 0, 0)
+            double marine:explodeDist = 4.1564
+        }
+    }
+
+    def Xform "Bow" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "assembly"
+    )
+    {
+        token marine:class = "Zone"
+        string marine:code = "Z.BW"
+        vector3d marine:explodeDir = (1, 0, 0)
+        double marine:explodeDist = 3.354
+        string marine:function = "fore body: bow thruster room and fore peak"
+        string marine:id = "45c77faf-ae68-4457-bbb0-e713097831c2"
+        int marine:lodLevel = 0
+        double marine:mass = 77101.209
+        token marine:massSource = "rollup"
+        token marine:material = "proxy"
+
+        def Xform "HullStructure" (
+            prepend payload = @./bow_hull.usda@
+        )
+        {
+            vector3d marine:explodeDir = (0, 0, 0)
+            double marine:explodeDist = 0
+        }
+
+        def Xform "Maneuvering" (
+            prepend payload = @./bow_maneuvering.usda@
+        )
+        {
+            vector3d marine:explodeDir = (0, 0, 1)
+            double marine:explodeDist = 6.8752
         }
     }
 }

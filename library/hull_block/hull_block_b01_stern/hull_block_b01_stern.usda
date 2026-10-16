@@ -1,0 +1,250 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "marine:schemaVersion" = "0.1.0"
+    }
+    defaultPrim = "hull_block_b01_stern"
+    metersPerUnit = 1
+    subLayers = [
+        @./hull_block_b01_stern.geom.usdc@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "hull_block_b01_stern" (
+    prepend apiSchemas = ["MarineAssetAPI"]
+    assetInfo = {
+        string name = "hull_block_b01_stern"
+        string version = "0.1.0"
+    }
+    kind = "component"
+)
+{
+    token marine:class = "HullBlock"
+    string marine:function = "prefabricated hull block: shell, decks and internal structure"
+    string marine:generator = "hull.hull_block:hull_block_b01_stern"
+    token marine:geometryFidelity = "true"
+    string marine:id = "13364153-35a9-4362-9220-704a1ac47b7f"
+    double marine:length = 19
+    int marine:lodLevel = 1
+    double marine:mass = 134620.9
+    token marine:massSource = "rollup"
+    token marine:material = "proxy"
+
+    def Xform "Shell" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "ShellPlating"
+        vector3d marine:explodeDir = (0, 0, 0)
+        double marine:explodeDist = 0
+        string marine:function = "watertight envelope; carries global hull girder loads"
+        token marine:geometryFidelity = "true"
+        string marine:id = "3c686339-bae6-4df8-a29e-21da5a50b072"
+        int marine:lodLevel = 2
+        double marine:mass = 56614.208
+        token marine:massSource = "computed"
+        token marine:material = "paint_hull_shell"
+        double marine:thickness = 0.014
+    }
+
+    def Xform "MainDeck" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "DeckPlating"
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 1.1084
+        string marine:function = "weather deck; closes the hull girder and carries deck loads"
+        token marine:geometryFidelity = "true"
+        string marine:id = "8e64912d-24db-4a0e-ab8d-40b96875a251"
+        int marine:lodLevel = 2
+        double marine:mass = 31130.086
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        double marine:thickness = 0.012
+    }
+
+    def Xform "SteeringGearFlat" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "DeckPlating"
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 2.4939
+        string marine:function = "internal flat supporting machinery"
+        token marine:geometryFidelity = "true"
+        string marine:id = "2d44d456-9eed-4b71-85b2-d7a62174dbb0"
+        int marine:lodLevel = 2
+        double marine:mass = 9632.307
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        double marine:thickness = 0.012
+    }
+
+    def Xform "WebFrame_002400" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "WebFrame"
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 4.9877
+        string marine:function = "transverse ring supporting shell and deck longitudinals"
+        token marine:geometryFidelity = "true"
+        string marine:id = "2155c010-d079-4f71-9347-a8fa3397ad13"
+        int marine:lodLevel = 2
+        double marine:mass = 1600.011
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        double marine:thickness = 0.012
+    }
+
+    def Xform "WebFrame_004800" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "WebFrame"
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 4.9877
+        string marine:function = "transverse ring supporting shell and deck longitudinals"
+        token marine:geometryFidelity = "true"
+        string marine:id = "0c06ebb7-3b94-4d21-9aa7-b24313d435d4"
+        int marine:lodLevel = 2
+        double marine:mass = 1654.146
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        double marine:thickness = 0.012
+    }
+
+    def Xform "WebFrame_007200" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "WebFrame"
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 6.6503
+        string marine:function = "transverse ring supporting shell and deck longitudinals"
+        token marine:geometryFidelity = "true"
+        string marine:id = "c96fe3cb-6bf7-42c4-8112-692b57a55311"
+        int marine:lodLevel = 2
+        double marine:mass = 1814.396
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        double marine:thickness = 0.012
+    }
+
+    def Xform "WebFrame_009600" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "WebFrame"
+        vector3d marine:explodeDir = (0, 0, 1)
+        double marine:explodeDist = 7.7587
+        string marine:function = "transverse ring supporting shell and deck longitudinals"
+        token marine:geometryFidelity = "true"
+        string marine:id = "cad10e5a-47f8-4711-a61b-ae1ab6863bb5"
+        int marine:lodLevel = 2
+        double marine:mass = 1902.626
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        double marine:thickness = 0.012
+    }
+
+    def Xform "WebFrame_012000" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "WebFrame"
+        vector3d marine:explodeDir = (1, 0, 0)
+        double marine:explodeDist = 4.7106
+        string marine:function = "transverse ring supporting shell and deck longitudinals"
+        token marine:geometryFidelity = "true"
+        string marine:id = "f431f0ec-f414-4be6-94ab-8c6db1a879f2"
+        int marine:lodLevel = 2
+        double marine:mass = 1999.286
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        double marine:thickness = 0.012
+    }
+
+    def Xform "WebFrame_014400" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "WebFrame"
+        vector3d marine:explodeDir = (1, 0, 0)
+        double marine:explodeDist = 1.9397
+        string marine:function = "transverse ring supporting shell and deck longitudinals"
+        token marine:geometryFidelity = "true"
+        string marine:id = "43a478f0-476d-42c8-9a84-b116b11a1a12"
+        int marine:lodLevel = 2
+        double marine:mass = 2048.588
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        double marine:thickness = 0.012
+    }
+
+    def Xform "Bulkhead_015989" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Bulkhead"
+        vector3d marine:explodeDir = (1, 0, 0)
+        double marine:explodeDist = 1.1084
+        string marine:function = "watertight transverse bulkhead; subdivision and transverse strength"
+        token marine:geometryFidelity = "true"
+        string marine:id = "398c72d3-784a-4ec6-a1a3-8a8edfb230e9"
+        int marine:lodLevel = 2
+        double marine:mass = 12102.039
+        token marine:massSource = "computed"
+        token marine:material = "steel_ah36"
+        double marine:thickness = 0.011
+    }
+
+    def Xform "Skeg" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Skeg"
+        vector3d marine:explodeDir = (0, 0, -1)
+        double marine:explodeDist = 4.9877
+        string marine:function = "centreline fin carrying the stern tube; directional stability"
+        token marine:geometryFidelity = "true"
+        string marine:id = "c2f95131-ccd2-4ea9-8f8d-5fe0c7d345dd"
+        int marine:lodLevel = 2
+        double marine:mass = 8257.136
+        token marine:massSource = "computed"
+        token marine:material = "paint_hull_shell"
+        double marine:thickness = 0.02
+    }
+
+    def Xform "Transom" (
+        prepend apiSchemas = ["MarineAssetAPI"]
+        kind = "subcomponent"
+    )
+    {
+        token marine:class = "Transom"
+        vector3d marine:explodeDir = (-1, 0, 0)
+        double marine:explodeDist = 1.1084
+        string marine:function = "flat stern plate closing the hull aft"
+        token marine:geometryFidelity = "true"
+        string marine:id = "9a1d6478-c55d-45a0-91bc-2c3077f05222"
+        int marine:lodLevel = 2
+        double marine:mass = 5866.071
+        token marine:massSource = "computed"
+        token marine:material = "paint_hull_shell"
+        double marine:thickness = 0.014
+    }
+}
+

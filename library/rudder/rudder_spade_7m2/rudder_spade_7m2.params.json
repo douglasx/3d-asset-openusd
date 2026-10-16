@@ -1,0 +1,23 @@
+{
+  "generator": "maneuvering.rudder:rudder_spade_7m2",
+  "params": {
+    "balance": 0.3,
+    "chord_root": 2300.0,
+    "chord_tip": 1900.0,
+    "name": "rudder_spade_7m2",
+    "neck_len": 600.0,
+    "plate_t": 16.0,
+    "span": 3600.0,
+    "stock_above": 2200.0,
+    "stock_below": 1300.0,
+    "stock_d": 320.0,
+    "thickness_ratio": 0.18,
+    "trunk_id": 500.0,
+    "trunk_od": 600.0,
+    "trunk_z": [
+      200.0,
+      1400.0
+    ]
+  },
+  "version": "0.1.0"
+}

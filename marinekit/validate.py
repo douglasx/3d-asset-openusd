@@ -235,7 +235,12 @@ def check_dimensions_and_mass(rep: Report, stage: Usd.Stage) -> None:
                 rep.ok("mass")
         elif src == "computed":
             density = vocab.density(m["material"])
-            if prim.IsA(UsdGeom.PointInstancer):
+            thin = classes.get(m.get("class", ""), {}).get("mass_check") == "thin_plate"
+            if thin and m.get("thickness"):
+                g = prim.GetChild("geom")
+                p, _, t = mesh_arrays(UsdGeom.Mesh(g))
+                vol = 0.5 * geom.mesh_area(p, t) * float(m["thickness"])
+            elif prim.IsA(UsdGeom.PointInstancer):
                 p, t = own_and_subtree_mesh(prim)
                 vol = geom.mesh_volume(p, t) * len(m.get("instanceIds", []))
             else:
@@ -429,6 +434,15 @@ def check_step_roundtrip(rep: Report) -> None:
                 if not same:
                     bad += 1
                     rep.add("step_roundtrip", "error", f"{where}:{path}", f"{k}: generator {va!r} vs ingested {vb!r}")
+            ga, gb = pa[path].GetChild("geom"), pb[path].GetChild("geom")
+            if ga and gb:
+                pa_, _, ta_ = mesh_arrays(UsdGeom.Mesh(ga))
+                pb_, _, tb_ = mesh_arrays(UsdGeom.Mesh(gb))
+                aa, ab = geom.mesh_area(pa_, ta_), geom.mesh_area(pb_, tb_)
+                if aa > 0 and abs(aa - ab) / aa > 0.01:
+                    bad += 1
+                    rep.add("step_roundtrip", "error", f"{where}:{path}",
+                            f"surface area changed through STEP: {aa:.3f} -> {ab:.3f} m2 (faces lost or added)")
             ba, bb = relative_box(cache_a, pa[path], a.GetDefaultPrim()), relative_box(cache_b, pb[path], b.GetDefaultPrim())
             if (ba is None) != (bb is None) or (ba is not None and not (np.allclose(ba[0], bb[0], atol=1e-3)
                                                                           and np.allclose(ba[1], bb[1], atol=1e-3))):

@@ -87,3 +87,10 @@ def mesh_volume(points: np.ndarray, tris: np.ndarray) -> float:
         return 0.0
     a, b, c = points[tris[:, 0]], points[tris[:, 1]], points[tris[:, 2]]
     return float(abs(np.einsum("ij,ij->i", a, np.cross(b, c)).sum() / 6.0))
+
+
+def mesh_area(points: np.ndarray, tris: np.ndarray) -> float:
+    if len(tris) == 0:
+        return 0.0
+    a, b, c = points[tris[:, 0]], points[tris[:, 1]], points[tris[:, 2]]
+    return float(0.5 * np.linalg.norm(np.cross(b - a, c - a), axis=1).sum())

@@ -70,6 +70,30 @@ materials:
     color: "#355c8a"
     roughness: 0.6
     metalness: 0.2
+  steel_ah36:
+    name: Hull structural steel AH36 (internal structure)
+    density: 7850
+    color: "#9aa4ad"
+    roughness: 0.6
+    metalness: 0.5
+  paint_hull_shell:
+    name: Hull shell steel AH36, antifouling and topside paint
+    density: 7850
+    color: "#8e3b2e"
+    roughness: 0.65
+    metalness: 0.15
+  paint_machinery_grey:
+    name: Painted steel (deck machinery finish)
+    density: 7850
+    color: "#6b7b86"
+    roughness: 0.6
+    metalness: 0.2
+  steel_rudder:
+    name: Rudder plating and stock steel (painted)
+    density: 7850
+    color: "#a0482f"
+    roughness: 0.55
+    metalness: 0.25
   proxy:
     name: Proxy (no physical material)
     density: 0
